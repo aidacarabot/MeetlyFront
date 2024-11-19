@@ -27,12 +27,12 @@ export const routes = [
   },
   {
     path: "/login",
-    text: "Login",
-    page: LoginRegister
+    text: "Iniciar Sesión",
+    page: () => LoginRegister("/login")
   },
   {
     path: "/register",
-    text: "Register",
-    page: LoginRegister
+    text: "Registrarse",
+    page: () => LoginRegister("/register")
   }
 ];

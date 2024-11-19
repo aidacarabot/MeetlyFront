@@ -1,11 +1,11 @@
-
 import { Button } from "../../components/Button/Button";
 import { Events } from "../../components/Events/Events";
+import { routes } from "../../routes/routes";
 import { createPage } from "../../utils/functions/createPage";
 import "./Hero.css";
 
 export const Hero = () => {
-  const heroDiv = createPage("hero"); // Creamos y limpiamos <main> con createPage
+  const heroDiv = createPage("hero");
 
   const p = document.createElement("p");
   p.textContent = "Bienvenido a ";
@@ -16,30 +16,43 @@ export const Hero = () => {
   const description = document.createElement("p");
   description.textContent = "Descubre los mejores eventos cerca de ti.";
 
-  // Creamos un contenedor para los botones
   const buttonContainer = document.createElement("div");
-  buttonContainer.className = "button-container"; // Clase para estilos
+  buttonContainer.className = "button-container";
+  buttonContainer.id = "login-register-buttons";
 
-  // Creamos el botón de "Iniciar Sesión"
+  const loginRoute = routes.find(route => route.path === "/login");
+  const registerRoute = routes.find(route => route.path === "/register");
+  
   const loginButton = Button(
-    "Iniciar Sesión",
-    "btn-primary",
-    () => (window.location.href = "/login")
+    loginRoute.text,
+    "btn-login-register",
+    () => window.navigateTo("/login")
   );
-
-  // Creamos el botón de "Registrarse"
+  
   const registerButton = Button(
-    "Registrarse",
-    "btn-secondary",
-    () => (window.location.href = "/register")
+    registerRoute.text,
+    "btn-login-register",
+    () => window.navigateTo("/register")
   );
 
-  // Añadimos los botones al contenedor
   buttonContainer.append(loginButton, registerButton);
 
-  // Añadimos los elementos al Hero
   heroDiv.append(h1, description, buttonContainer);
 
-  // Llamamos a Events para mostrar los eventos dentro del Hero
-  Events(heroDiv); // Pasamos heroDiv como el contenedor donde se añaden los eventos
+  Events(heroDiv, 10);
+
+  const accessAllEventsButton = Button(
+    "Inicia Sesión para Acceder a todos ellos",
+    "btn-access-all",
+    () => {
+      const loginRegisterButtons = document.getElementById('login-register-buttons');
+      if (loginRegisterButtons) {
+        loginRegisterButtons.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  );
+  
+  heroDiv.append(accessAllEventsButton);
+  
+  return heroDiv;
 };

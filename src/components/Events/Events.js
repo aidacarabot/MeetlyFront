@@ -1,36 +1,45 @@
-import { fetchData } from "../../utils/api/fetchData"; // Importamos fetchData
-import "./Events.css"; // Estilos de las tarjetas
+import { fetchData } from "../../utils/api/fetchData";
+import "./Events.css";
 
-export const Events = async (parentDiv) => {
+export const Events = async (parentDiv, limit) => {
   const p = document.createElement("p");
   p.textContent = "Echa un vistazo a los eventos actuales...";
-  const eventsDiv = document.createElement("div"); // Creamos el contenedor de eventos
-  eventsDiv.id = "events"; // Asignamos ID para estilos
+  const eventsDiv = document.createElement("div");
+  eventsDiv.id = "events";
 
   parentDiv.append(p);
-  parentDiv.append(eventsDiv); // Añadimos eventsDiv al contenedor recibido
+  parentDiv.append(eventsDiv);
 
-  // Llamada al endpoint para obtener los eventos
-  const events = await fetchData("/api/v1/events");
+  try {
+    const allEvents = await fetchData("/api/v1/events");
 
-  if (!events || events.length === 0) {
-    const message = document.createElement("p");
-    message.textContent = "No hay eventos disponibles.";
-    eventsDiv.append(message);
-    return;
+    if (!allEvents || allEvents.length === 0) {
+      const message = document.createElement("p");
+      message.textContent = "No hay eventos disponibles.";
+      eventsDiv.append(message);
+      return;
+    }
+
+    // Si se proporciona un límite, usamos slice para obtener solo ese número de eventos
+    // Si no, usamos todos los eventos
+    const eventsToShow = limit ? allEvents.slice(0, limit) : allEvents;
+
+    eventsToShow.forEach((event) => {
+      const eventCard = createEventCard(event);
+      eventsDiv.append(eventCard);
+    });
+
+  } catch (error) {
+    console.error("Error al cargar los eventos:", error);
+    const errorMessage = document.createElement("p");
+    errorMessage.textContent = "Hubo un error al cargar los eventos. Por favor, intenta más tarde.";
+    eventsDiv.append(errorMessage);
   }
-
-  // Crear y añadir las tarjetas para cada evento
-  events.forEach((event) => {
-    const eventCard = createEventCard(event); // Creamos una tarjeta por evento
-    eventsDiv.append(eventCard); // Añadimos cada tarjeta al contenedor
-  });
 };
 
-// Función para crear una tarjeta de evento
 const createEventCard = (event) => {
   const eventCard = document.createElement("div");
-  eventCard.className = "event-card"; // Clase para CSS
+  eventCard.className = "event-card";
 
   const img = document.createElement("img");
   img.src = event.img;
@@ -48,8 +57,7 @@ const createEventCard = (event) => {
   const date = document.createElement("p");
   date.innerHTML = `<strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}`;
 
-  // Añadimos todos los elementos a la tarjeta
   eventCard.append(img, title, description, location, date);
 
-  return eventCard; // Devolvemos la tarjeta del evento
+  return eventCard;
 };
