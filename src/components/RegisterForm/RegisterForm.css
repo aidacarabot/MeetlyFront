@@ -1,51 +1,17 @@
-.register-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+.error-message, .success-message {
+  font-size: 0.8em;
+  margin-top: 5px;
+  display: none;
 }
 
-.register-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.error-message {
+  color: red;
 }
 
-.register-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.register-form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #6d5dfc;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.register-form button:hover {
-  background-color: #5a4de0;
-}
-
-.message {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 1rem;
-}
-
-.success {
+.success-message {
   color: green;
 }
 
-.error {
-  color: red;
+.form-group {
+  margin-bottom: 15px;
 }

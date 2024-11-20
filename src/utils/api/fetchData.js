@@ -5,20 +5,24 @@ export const fetchData = async (endpoint, method = "GET", data = null) => {
     const options = {
       method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: data ? JSON.stringify(data) : null,
     };
 
-    const response = await fetch(`${URL}${endpoint}`, options);
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    if (data) {
+      options.body = JSON.stringify(data);
     }
 
-    return await response.json();
+    const response = await fetch(`${URL}${endpoint}`, options);
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw { response: responseData };
+    }
+
+    return responseData;
   } catch (error) {
     console.error("Error en fetchData:", error);
-    return null;
+    throw error;
   }
 };
