@@ -1,3 +1,4 @@
+import "./Button.css"
 export const Button = (text, className, onClick) => {
   const button = document.createElement("button"); // Creamos el botón
   button.className = className || ""; // Asignamos la clase si existe

@@ -1,3 +1,5 @@
+//llamamos al backend para GET all Events
+
 import { fetchData } from "../../utils/api/fetchData";
 import "./Events.css";
 

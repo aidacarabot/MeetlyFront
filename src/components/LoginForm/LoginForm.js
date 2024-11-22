@@ -1,3 +1,4 @@
+
 import { fetchData } from "../../utils/api/fetchData";
 import "./LoginForm.css";
 
@@ -10,10 +11,21 @@ export const LoginForm = () => {
     <input type="text" name="usernameOrEmail" placeholder="Nombre de Usuario o Email" required>
     <input type="password" name="password" placeholder="Contraseña" required>
     <button type="submit">Iniciar Sesión</button>
+    <div id="message" style="display: none;"></div>
   `;
+
+  const messageElement = form.querySelector('#message');
+
+  const showMessage = (message, isError = false) => {
+    messageElement.textContent = message;
+    messageElement.style.display = 'block';
+    messageElement.className = isError ? 'error-message' : 'success-message';
+  };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    messageElement.style.display = 'none';
+
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData.entries());
 
@@ -21,11 +33,15 @@ export const LoginForm = () => {
       const response = await fetchData("/api/v1/users/login", "POST", loginData);
       if (response.token) {
         localStorage.setItem("token", response.token);
-        alert("Has iniciado sesión correctamente");
-        window.navigateTo("/"); // Redirige al usuario a la página principal
+        localStorage.setItem("user", JSON.stringify(response.user));
+        showMessage("Inicio de sesión exitoso. Redirigiendo...");
+        setTimeout(() => {
+          window.location.href = "/inicio";
+        }, 2000); // Espera 2 segundos antes de redirigir
       }
     } catch (error) {
-      alert("Error en el inicio de sesión: " + error.message);
+      console.error("Error de inicio de sesión:", error);
+      showMessage("Usuario o contraseña incorrectos", true);
     }
   });
 
