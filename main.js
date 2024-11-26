@@ -5,40 +5,52 @@ import { Hero } from "./src/pages/Hero/Hero";
 import { LoginRegister } from "./src/pages/LoginRegister/LoginRegister";
 import { routes } from "./src/routes/routes";
 
-// Función para renderizar la página correcta
+// Función para renderizar la página correcta según la ruta actual
 const renderPage = () => {
-  const path = window.location.pathname;
-  const route = routes.find(r => r.path === path) || routes.find(r => r.path === "/");
-  
-  const main = document.querySelector("main");
-  if (main) {
-    main.innerHTML = "";
-    if (path === "/") {
-      main.appendChild(Hero());
-    } else if (path === "/login" || path === "/register") {
-      main.appendChild(LoginRegister(path));
+  const path = window.location.pathname; // Obtiene la ruta actual.
+  const route = routes.find((r) => r.path === path); // Encuentra la ruta correspondiente.
+  const main = document.querySelector("main"); // Selecciona el elemento <main>.
+
+  if (!route) {
+    console.error("Ruta no encontrada"); // Si la ruta no está definida, muestra un error.
+    return;
+  }
+
+  // Controlar la aparición del Header
+  if (path === "/inicio" || path === "/perfil" || path === "/crear-evento") {
+    if (!document.querySelector("header")) {
+      // Si no existe un Header ya renderizado, lo agregamos.
+      document.body.prepend(Header());
     }
-    // Añade más condiciones aquí para otras rutas si es necesario
   } else {
-    console.error("Element 'main' not found");
+    const existingHeader = document.querySelector("header");
+    if (existingHeader) {
+      existingHeader.remove(); // Eliminamos el Header en páginas donde no debe aparecer.
+    }
+  }
+
+  // Renderizamos el contenido principal
+  if (main) {
+    main.innerHTML = ""; // Limpiamos el contenido de <main>.
+    main.appendChild(route.page()); // Renderizamos la página correspondiente.
   }
 };
 
+
 // Inicialización de la aplicación
 const initApp = () => {
-  Header();
-  Main();
-  renderPage(); // Renderiza la página inicial basada en la ruta actual
+  Main(); // Crea el elemento <main> en el DOM.
+  renderPage(); // Renderiza la página inicial.
 
-  // Añade un event listener para manejar los cambios de ruta
+  // Escucha los cambios en la navegación del navegador.
   window.addEventListener("popstate", renderPage);
 };
 
-// Inicia la aplicación cuando el DOM esté listo
-document.addEventListener("DOMContentLoaded", initApp);
-
-// Función para navegar a una nueva ruta
+//Navega a una ruta
 window.navigateTo = (path) => {
-  window.history.pushState({}, "", path);
-  renderPage();
+  window.history.pushState({}, "", path); // Actualiza la URL sin recargar.
+  renderPage(); // Renderiza la página correspondiente.
 };
+
+// Inicia la aplicación cuando el DOM esté listo.
+document.addEventListener("DOMContentLoaded", initApp);
