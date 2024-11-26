@@ -1,68 +1,63 @@
 import { fetchData } from "../../utils/api/fetchData";
+import { showMessage } from "../../utils/functions/feedback"; // Función para mostrar mensajes.
 import "./RegisterForm.css";
 
-export const RegisterForm = (onSuccessfulRegister) => {
+export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
   const form = document.createElement("form");
   form.className = "register-form";
 
+  // Estructura del formulario
   form.innerHTML = `
     <h2>Registrarse</h2>
-    <input type="text" name="fullName" placeholder="Nombre Completo" required>
-    <input type="text" name="username" placeholder="Nombre de Usuario" required>
-    <input type="email" name="email" placeholder="Correo Electrónico" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
-    <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña" required>
+    <input type="text" name="fullName" placeholder="Nombre Completo" required />
+    <input type="text" name="username" placeholder="Nombre de Usuario" required />
+    <input type="email" name="email" placeholder="Correo Electrónico" required />
+    <input type="password" name="password" placeholder="Contraseña" required />
+    <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña" required />
     <button type="submit">Registrarse</button>
-    <div id="error-messages"></div>
-    <div id="success-message" style="display: none;"></div>
+    <div id="message" class="message"></div> <!-- Contenedor para mensajes -->
+
+    <!-- Enlace para redirigir al inicio de sesión -->
+    <p class="small-text">
+      ¿Ya tienes una cuenta? <span id="go-to-login" class="link">Inicia Sesión</span>
+    </p>
   `;
 
-  const errorMessages = form.querySelector('#error-messages');
-  const successMessage = form.querySelector('#success-message');
+  const messageElement = form.querySelector("#message");
+  const goToLoginElement = form.querySelector("#go-to-login");
 
-  const showSuccessMessage = (message) => {
-    successMessage.textContent = message;
-    successMessage.style.display = 'block';
-    setTimeout(() => {
-      successMessage.style.display = 'none';
-      onSuccessfulRegister();
-    }, 2000);
-  };
+  // Agregar funcionalidad al enlace de "Inicia Sesión"
+  goToLoginElement.addEventListener("click", () => goToLogin());
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    errorMessages.innerHTML = '';
-    successMessage.style.display = 'none';
+    messageElement.style.display = "none"; // Oculta mensajes previos.
 
     const formData = new FormData(form);
     const userData = Object.fromEntries(formData.entries());
-    const errors = new Set();
+    const errors = [];
 
+    // Validación local: contraseñas coinciden
     if (userData.password !== userData.confirmPassword) {
-      errors.add("Las contraseñas no coinciden");
+      errors.push("Las contraseñas no coinciden.");
+    }
+
+    if (errors.length > 0) {
+      showMessage(messageElement, errors.join(" "), true);
+      return;
     }
 
     try {
       const response = await fetchData("/api/v1/users/register", "POST", userData);
+
       if (response.user) {
-        showSuccessMessage("Te has registrado correctamente, ya puedes iniciar sesión");
+        showMessage(messageElement, "Registro exitoso. Redirigiendo al inicio de sesión...", false);
+        setTimeout(() => onSuccessfulRegister(), 2000);
       }
     } catch (error) {
-      if (error.response && error.response.error) {
-        if (typeof error.response.error === 'string') {
-          errors.add(error.response.error);
-        } else if (Array.isArray(error.response.error)) {
-          error.response.error.forEach(err => errors.add(err));
-        }
-      }
-    }
-
-    if (errors.size > 0) {
-      errors.forEach(error => {
-        const errorElement = document.createElement('p');
-        errorElement.textContent = error;
-        errorMessages.appendChild(errorElement);
-      });
+      // Manejo de errores del servidor o mensaje específico.
+      const errorMessage = error?.response?.error || "El usuario o correo ya están en uso. Utiliza otros o inicia sesión.";
+      showMessage(messageElement, errorMessage, true);
     }
   });
 

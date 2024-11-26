@@ -1,56 +1,43 @@
 import "./style.css";
 import { Header } from "./src/components/Header/Header";
 import { Main } from "./src/components/Main/Main";
-import { Hero } from "./src/pages/Hero/Hero";
-import { LoginRegister } from "./src/pages/LoginRegister/LoginRegister";
 import { routes } from "./src/routes/routes";
 
-// Función para renderizar la página correcta según la ruta actual
+// Renderiza la página correcta según la ruta
 const renderPage = () => {
-  const path = window.location.pathname; // Obtiene la ruta actual.
-  const route = routes.find((r) => r.path === path); // Encuentra la ruta correspondiente.
-  const main = document.querySelector("main"); // Selecciona el elemento <main>.
+  const path = window.location.pathname;
+  const route = routes.find((r) => r.path === path) || routes.find((r) => r.path === "/");
 
-  if (!route) {
-    console.error("Ruta no encontrada"); // Si la ruta no está definida, muestra un error.
-    return;
-  }
+  const main = document.querySelector("main");
+  if (main) {
+    main.innerHTML = ""; // Limpia el contenido anterior
 
-  // Controlar la aparición del Header
-  if (path === "/inicio" || path === "/perfil" || path === "/crear-evento") {
-    if (!document.querySelector("header")) {
-      // Si no existe un Header ya renderizado, lo agregamos.
-      document.body.prepend(Header());
+    const pageContent = route.page();
+    if (pageContent) {
+      main.appendChild(pageContent); // Agrega el contenido de la página al <main>
+    } else {
+      console.error(`La ruta "${path}" no devolvió contenido válido.`);
     }
   } else {
-    const existingHeader = document.querySelector("header");
-    if (existingHeader) {
-      existingHeader.remove(); // Eliminamos el Header en páginas donde no debe aparecer.
-    }
-  }
-
-  // Renderizamos el contenido principal
-  if (main) {
-    main.innerHTML = ""; // Limpiamos el contenido de <main>.
-    main.appendChild(route.page()); // Renderizamos la página correspondiente.
+    console.error("Elemento 'main' no encontrado en el DOM.");
   }
 };
 
-
-// Inicialización de la aplicación
+// Inicializa la aplicación
 const initApp = () => {
-  Main(); // Crea el elemento <main> en el DOM.
-  renderPage(); // Renderiza la página inicial.
+  Header(); // Agrega el Header al principio.
+  Main(); // Crea el <main> después del Header.
+  renderPage(); // Renderiza la página inicial según la ruta actual.
 
-  // Escucha los cambios en la navegación del navegador.
+  // Maneja los cambios de ruta
   window.addEventListener("popstate", renderPage);
 };
 
-//Navega a una ruta
+// Ejecuta la inicialización cuando el DOM está listo
+document.addEventListener("DOMContentLoaded", initApp);
+
+// Navega a una nueva ruta
 window.navigateTo = (path) => {
   window.history.pushState({}, "", path); // Actualiza la URL sin recargar.
   renderPage(); // Renderiza la página correspondiente.
 };
-
-// Inicia la aplicación cuando el DOM esté listo.
-document.addEventListener("DOMContentLoaded", initApp);
