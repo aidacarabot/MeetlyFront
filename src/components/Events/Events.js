@@ -48,9 +48,11 @@ const createEventCard = (event) => {
   img.alt = event.title;
 
   const title = document.createElement("h2");
+  title.className = "event-title"; // Clase específica para el título.
   title.textContent = event.title;
 
   const description = document.createElement("p");
+  description.className = "event-description"; // Clase específica para la descripción.
   description.textContent = event.description;
 
   const location = document.createElement("p");

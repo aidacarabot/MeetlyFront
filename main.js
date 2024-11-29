@@ -1,8 +1,6 @@
 import "./style.css";
 import { Header } from "./src/components/Header/Header";
 import { Main } from "./src/components/Main/Main";
-import { Hero } from "./src/pages/Hero/Hero";
-import { LoginRegister } from "./src/pages/LoginRegister/LoginRegister";
 import { routes } from "./src/routes/routes";
 
 // Función para verificar si el usuario está autenticado
@@ -15,8 +13,12 @@ const renderHeader = () => {
     existingHeader.remove(); // Elimina cualquier Header existente
   }
 
-  if (isAuthenticated()) {
-    Header(); // Renderiza el Header si el usuario está autenticado
+  const currentPath = window.location.pathname;
+  
+  // Renderiza el Header solo si el usuario está autenticado y no está en Hero ("/") ni en Login/Register
+  const excludePaths = ["/", "/login", "/register"];
+  if (isAuthenticated() && !excludePaths.includes(currentPath)) {
+    Header(); // Renderiza el Header
   }
 };
 
