@@ -32,8 +32,10 @@ export const LoginForm = () => {
       if (response.token) {
         // Guarda el token y el usuario en localStorage.
         localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.user));
-
+      
+        // Asegúrate de guardar solo el nombre de usuario en "username" para simplificar
+        localStorage.setItem("username", response.user.username);
+      
         // Muestra un mensaje de éxito y redirige.
         showMessage(messageElement, "Inicio de sesión exitoso. Redirigiendo...", false);
         setTimeout(() => window.navigateTo("/inicio"), 2000);
