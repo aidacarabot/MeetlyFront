@@ -1,11 +1,11 @@
 import { createPage } from "../../utils/functions/createPage";
-import { Events } from "../../components/Events/Events";
+import { fetchData } from "../../utils/api/fetchData";
 import { Button } from "../../components/Button/Button";
 import "./Home.css";
 
 // Función para renderizar la página de inicio
 export const Home = () => {
-  const homeDiv = createPage("home"); // Crea el contenedor principal para Home.
+  const homeDiv = createPage("home"); // Contenedor principal para Home.
 
   // Div para el buscador de eventos
   const searchDiv = document.createElement("div");
@@ -37,30 +37,62 @@ export const Home = () => {
   eventsDiv.className = "events-container";
   homeDiv.appendChild(eventsDiv);
 
-  // Función para cargar y filtrar los eventos
-  const loadEvents = async (filter = "") => {
-    eventsDiv.innerHTML = ""; // Limpia los eventos antes de cargarlos.
-    const allEvents = await Events(eventsDiv); // Carga todos los eventos.
+  let allEvents = []; // Almacén para todos los eventos cargados
 
-    // Si hay un filtro, muestra solo los eventos que coincidan con el título.
-    if (filter) {
-      const filteredEvents = Array.from(eventsDiv.children).filter((event) =>
-        event.textContent.toLowerCase().includes(filter.toLowerCase())
-      );
-
-      eventsDiv.innerHTML = ""; // Limpia el contenedor y muestra los eventos filtrados.
-      filteredEvents.forEach((event) => eventsDiv.appendChild(event));
+  // Función para cargar eventos desde la API
+  const loadEventsFromAPI = async () => {
+    try {
+      const events = await fetchData("/api/v1/events");
+      allEvents = events || []; // Almacena todos los eventos
+      renderEvents(); // Renderiza eventos después de cargarlos
+    } catch (error) {
+      console.error("Error al cargar eventos:", error);
+      eventsDiv.innerHTML = "<p>Hubo un error al cargar los eventos.</p>";
     }
   };
 
-  // Escuchar los cambios en el input de búsqueda
+  // Función para renderizar los eventos
+  const renderEvents = (filter = "") => {
+    eventsDiv.innerHTML = ""; // Limpia los eventos antes de renderizar
+
+    // Filtra los eventos según el título
+    const filteredEvents = allEvents.filter((event) =>
+      event.title.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    if (filteredEvents.length === 0) {
+      // Si no hay eventos, muestra un mensaje
+      const noResultsMessage = document.createElement("p");
+      noResultsMessage.textContent = "No se encontraron eventos.";
+      eventsDiv.appendChild(noResultsMessage);
+      return;
+    }
+
+    // Renderiza las tarjetas de los eventos filtrados
+    filteredEvents.forEach((event) => {
+      const eventCard = document.createElement("div");
+      eventCard.className = "event-card";
+
+      eventCard.innerHTML = `
+        <img src="${event.img}" alt="${event.title}" />
+        <h2>${event.title}</h2>
+        <p>${event.description}</p>
+        <p><strong>Ubicación:</strong> ${event.location}</p>
+        <p><strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}</p>
+      `;
+
+      eventsDiv.appendChild(eventCard);
+    });
+  };
+
+  // Escucha los cambios en el input de búsqueda
   searchInput.addEventListener("input", (e) => {
-    const filter = e.target.value; // Texto del input
-    loadEvents(filter); // Filtra los eventos según el texto
+    const filter = e.target.value; // Obtiene el texto del input
+    renderEvents(filter); // Filtra y renderiza los eventos
   });
 
   // Cargar eventos al iniciar
-  loadEvents();
+  loadEventsFromAPI();
 
-  return homeDiv; // Devuelve el contenedor principal.
+  return homeDiv; // Devuelve el contenedor principal
 };
