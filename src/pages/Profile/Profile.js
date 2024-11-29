@@ -1,47 +1,56 @@
 import { createPage } from "../../utils/functions/createPage";
-import { Button } from "../../components/Button/Button";
-import { EventsAssist } from "../../components/EventsAssist/EventsAssist";
-import { EventsCreated } from "../../components/EventsCreated/EventsCreated";
+import { Button } from "../../components/Button/Button"; // Importa el componente reutilizable Button
+import { EventsAssist } from "../../components/EventsAssist/EventsAssist"; // Componente para eventos asistidos
+import { EventsCreated } from "../../components/EventsCreated/EventsCreated"; // Componente para eventos creados
 import "./Profile.css";
 
 export const Profile = () => {
+  // Crear el contenedor principal de la página de perfil
   const profileDiv = createPage("profile");
 
-  // Contenedor de los botones
+  // **1. Contenedor para los botones:**
   const buttonContainer = document.createElement("div");
-  buttonContainer.className = "button-container";
+  buttonContainer.className = "button-container"; // Clase CSS para estilizar los botones
 
-  // Botón para "Eventos a los que Asistiré"
+  // **2. Botón para "Eventos a los que Asistiré":**
   const assistButton = Button(
     "Eventos a los que Asistiré", // Texto del botón
-    "btn-assist", // Clase personalizada
-    () => renderSection("assist") // Callback para renderizar la sección
+    "btn-assist", // Clase personalizada para el botón
+    () => renderSection("assist") // Callback para renderizar la sección de eventos asistidos
   );
 
-  // Botón para "Eventos Creados"
+  // **3. Botón para "Eventos Creados":**
   const createdButton = Button(
     "Eventos Creados", // Texto del botón
-    "btn-created", // Clase personalizada
-    () => renderSection("created") // Callback para renderizar la sección
+    "btn-created", // Clase personalizada para el botón
+    () => renderSection("created") // Callback para renderizar la sección de eventos creados
   );
 
+  // Añadir los botones al contenedor
   buttonContainer.append(assistButton, createdButton);
 
-  // Contenedor donde se mostrarán los eventos
+  // **4. Contenedor para mostrar el contenido dinámico (eventos):**
   const contentContainer = document.createElement("div");
-  contentContainer.className = "content-container";
+  contentContainer.className = "content-container"; // Clase CSS para estilizar el contenedor
 
-  // Función para renderizar las secciones
+  // **5. Función para renderizar las secciones según el botón seleccionado:**
   const renderSection = (section) => {
     contentContainer.innerHTML = ""; // Limpia el contenido previo
+
     if (section === "assist") {
-      EventsAssist(contentContainer); // Renderiza eventos asistidos
+      // Renderizar los eventos a los que el usuario asistirá
+      EventsAssist(contentContainer);
     } else if (section === "created") {
-      EventsCreated(contentContainer); // Renderiza eventos creados
+      // Renderizar los eventos creados por el usuario
+      EventsCreated(contentContainer); // Asegúrate de que este componente usa la ruta `/api/v1/events/created`
     }
   };
 
+  // Añadir el contenedor de botones y el contenedor de contenido al div principal
   profileDiv.append(buttonContainer, contentContainer);
 
-  return profileDiv;
+  // **6. Renderizar automáticamente una sección al cargar la página:**
+  renderSection("assist"); // Por defecto, muestra los eventos asistidos al entrar en el perfil
+
+  return profileDiv; // Retorna el contenedor principal
 };
