@@ -14,10 +14,10 @@ const renderHeader = () => {
   }
 
   const currentPath = window.location.pathname;
-  
+
   // Renderiza el Header solo si el usuario está autenticado y no está en Hero ("/") ni en Login/Register
   const excludePaths = ["/", "/login", "/register"];
-  if (isAuthenticated() && !excludePaths.includes(currentPath)) {
+  if (isAuthenticated() && !excludePaths.some((path) => currentPath.startsWith(path))) {
     Header(); // Renderiza el Header
   }
 };
@@ -25,7 +25,16 @@ const renderHeader = () => {
 // Renderiza la página correcta según la ruta actual
 const renderPage = () => {
   const path = window.location.pathname;
-  const route = routes.find((r) => r.path === path) || routes.find((r) => r.path === "/");
+
+  // Buscar una ruta coincidente o manejar dinámicas
+  const route = routes.find((r) => {
+    if (r.path.includes(":")) {
+      // Detectar rutas dinámicas y verificar coincidencias
+      const dynamicRoute = new RegExp(`^${r.path.replace(/:\w+/g, "[^/]+")}$`);
+      return dynamicRoute.test(path);
+    }
+    return r.path === path;
+  }) || routes.find((r) => r.path === "/");
 
   const main = document.querySelector("main");
   if (main) {

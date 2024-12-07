@@ -13,7 +13,7 @@ export const Home = () => {
 
   const searchInput = document.createElement("input");
   searchInput.type = "text";
-  searchInput.placeholder = "Buscar eventos por título...";
+  searchInput.placeholder = "Buscar eventos por título o descripción...";
   searchInput.className = "search-input";
 
   searchDiv.appendChild(searchInput);
@@ -55,9 +55,11 @@ export const Home = () => {
   const renderEvents = (filter = "") => {
     eventsDiv.innerHTML = ""; // Limpia los eventos antes de renderizar
 
-    // Filtra los eventos según el título
-    const filteredEvents = allEvents.filter((event) =>
-      event.title.toLowerCase().includes(filter.toLowerCase())
+    // Filtra los eventos según el título o la descripción
+    const filteredEvents = allEvents.filter(
+      (event) =>
+        event.title.toLowerCase().includes(filter.toLowerCase()) || // Coincidencia en el título
+        event.description.toLowerCase().includes(filter.toLowerCase()) // Coincidencia en la descripción
     );
 
     if (filteredEvents.length === 0) {
@@ -80,6 +82,11 @@ export const Home = () => {
         <p><strong>Ubicación:</strong> ${event.location}</p>
         <p><strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}</p>
       `;
+
+      eventCard.addEventListener("click", () => {
+        const eventSlug = event.title.toLowerCase().replace(/ /g, "-"); // Convierte el título a un slug
+        window.navigateTo(`/event/${eventSlug}`); // Redirige a la página del evento
+      });
 
       eventsDiv.appendChild(eventCard);
     });

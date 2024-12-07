@@ -1,4 +1,5 @@
 import { CreateEvent } from "../pages/CreateEvent/CreateEvent";
+import { EventPage } from "../pages/EventPage/EventPage";
 import { Hero } from "../pages/Hero/Hero";
 import { Home } from "../pages/Home/Home";
 import { LoginRegister } from "../pages/LoginRegister/LoginRegister";
@@ -34,5 +35,10 @@ export const routes = [
     path: "/register",
     text: "Registrarse",
     page: () => LoginRegister("/register")
-  }
+  },
+  { 
+    path: "/event/:eventName",
+    text: "Evento",
+    page: EventPage,
+  },
 ];
