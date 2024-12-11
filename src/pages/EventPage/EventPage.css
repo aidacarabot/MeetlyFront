@@ -24,24 +24,46 @@
   margin: 8px 0;
 }
 
-.btn-attend-event {
-  display: inline-block;
-  margin-top: 20px;
+.btn-subscribe {
+  background-color: #28a745; /* Verde */
+  color: white;
   padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
   cursor: pointer;
 }
 
-.btn-attend-event:hover {
-  background-color: #0056b3;
+.btn-unsubscribe {
+  background-color: #dc3545; /* Rojo */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-subscribe:hover,
+.btn-unsubscribe:hover {
+  opacity: 0.9;
+}
+
+.message-container {
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  text-align: center;
+  display: none; /* Oculto por defecto */
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .error-message {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
 }
