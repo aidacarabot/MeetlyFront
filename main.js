@@ -3,22 +3,22 @@ import { Header } from "./src/components/Header/Header";
 import { Main } from "./src/components/Main/Main";
 import { routes } from "./src/routes/routes";
 
-// Función para verificar si el usuario está autenticado
-const isAuthenticated = () => !!localStorage.getItem("token");
-
 // Función para manejar el renderizado del Header
 const renderHeader = () => {
   const existingHeader = document.querySelector("header");
-  if (existingHeader) {
-    existingHeader.remove(); // Elimina cualquier Header existente
-  }
+  if (existingHeader) existingHeader.remove(); // Elimina cualquier Header existente.
 
   const currentPath = window.location.pathname;
 
-  // Renderiza el Header solo si el usuario está autenticado y no está en Hero ("/") ni en Login/Register
+  // Rutas donde no queremos mostrar el Header.
   const excludePaths = ["/", "/login", "/register"];
-  if (isAuthenticated() && !excludePaths.some((path) => currentPath.startsWith(path))) {
-    Header(); // Renderiza el Header
+
+  // Comprobamos si el usuario está autenticado.
+  const isAuthenticated = !!localStorage.getItem("token");
+
+  // Solo renderizamos el Header si está autenticado y no estamos en una ruta excluida.
+  if (isAuthenticated && !excludePaths.includes(currentPath)) {
+    Header(); // Renderizamos el Header.
   }
 };
 
@@ -26,7 +26,7 @@ const renderHeader = () => {
 const renderPage = () => {
   const path = window.location.pathname;
 
-  // Buscar una ruta coincidente o manejar dinámicas
+  // Buscar una ruta coincidente o manejar rutas dinámicas
   const route = routes.find((r) => {
     if (r.path.includes(":")) {
       // Detectar rutas dinámicas y verificar coincidencias
@@ -50,7 +50,7 @@ const renderPage = () => {
     console.error("Elemento <main> no encontrado en el DOM.");
   }
 
-  renderHeader(); // Actualiza el Header después de renderizar la página
+  renderHeader(); // Asegura que el Header se renderice después de la página
 };
 
 // Inicializa la aplicación

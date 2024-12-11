@@ -30,16 +30,17 @@ export const LoginForm = () => {
       const response = await fetchData("/api/v1/users/login", "POST", loginData);
 
       if (response.token) {
-        // Guarda el token y el usuario en localStorage.
+        // Guarda el token en localStorage
         localStorage.setItem("token", response.token);
       
-        // Asegúrate de guardar solo el nombre de usuario en "username" para simplificar
-        localStorage.setItem("username", response.user.username);
+        // Guarda el usuario completo en localStorage
+        localStorage.setItem("user", JSON.stringify(response.user));
       
-        // Muestra un mensaje de éxito y redirige.
+        // Muestra un mensaje de éxito y redirige
         showMessage(messageElement, "Inicio de sesión exitoso. Redirigiendo...", false);
         setTimeout(() => window.navigateTo("/inicio"), 2000);
       }
+      
     } catch (error) {
       // Maneja los errores del servidor o muestra un mensaje genérico.
       const errorMessage = error?.response?.error || "El email, usuario o contraseña son incorrectos. Vuelve a intentarlo.";
