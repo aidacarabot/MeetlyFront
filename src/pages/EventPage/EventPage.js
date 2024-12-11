@@ -46,63 +46,76 @@ export const EventPage = () => {
         return;
       }
 
+      const isOrganizer = selectedEvent.organizer === user.username;
       let isAttending = selectedEvent.attendees.some(
         (attendee) => attendee === user._id
       );
 
-      // Logs de depuración
-      console.log("Usuario actual:", user);
-      console.log("Asistentes del evento:", selectedEvent.attendees);
-      console.log("¿Está inscrito?:", isAttending);
-
+      // Actualiza dinámicamente el número de asistentes
       const updateAttendeesCount = (change) => {
         const attendeesCountEl = eventDetailsDiv.querySelector(".attendees-count strong");
         if (attendeesCountEl) {
           const currentCount = parseInt(attendeesCountEl.textContent, 10);
-          attendeesCountEl.textContent = currentCount + change; // Actualiza dinámicamente
+          attendeesCountEl.textContent = currentCount + change;
         }
       };
 
-      const attendButton = Button(
-        isAttending ? "Desinscribirse" : "Inscribirse",
-        isAttending ? "btn-unsubscribe" : "btn-subscribe",
-        async () => {
-          try {
-            const endpoint = `/api/v1/events/attend/${selectedEvent.id}`;
-            const method = isAttending ? "DELETE" : "POST";
+      // Mostrar botón de eliminar evento si eres el organizador
+      if (isOrganizer) {
+        const deleteButton = Button(
+          "Eliminar Evento",
+          "btn-delete-event",
+          async () => {
+            try {
+              await fetchData(`/api/v1/events/${selectedEvent.id}`, "DELETE", null, {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              });
 
-            await fetchData(endpoint, method, null, {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            });
-
-            // Mostrar mensaje al usuario.
-            showMessage(
-              messageDiv,
-              isAttending
-                ? "Te has desinscrito del evento."
-                : "Te has inscrito al evento.",
-              false
-            );
-
-            // Alternar estado de inscripción
-            isAttending = !isAttending;
-            attendButton.textContent = isAttending ? "Desinscribirse" : "Inscribirse";
-            attendButton.className = isAttending ? "btn-unsubscribe" : "btn-subscribe";
-
-            // Actualizar contador dinámicamente
-            updateAttendeesCount(isAttending ? 1 : -1);
-          } catch (error) {
-            console.error("Error al inscribirse/desinscribirse:", error);
-            showMessage(
-              messageDiv,
-              "Hubo un problema al procesar la solicitud.",
-              true
-            );
+              showMessage(messageDiv, "Evento eliminado exitosamente.", false);
+              setTimeout(() => window.navigateTo("/inicio"), 2000);
+            } catch (error) {
+              console.error("Error al eliminar el evento:", error);
+              showMessage(messageDiv, "Error al eliminar el evento.", true);
+            }
           }
-        }
-      );
+        );
+        eventDetailsDiv.appendChild(deleteButton);
+      } else {
+        // Mostrar botón de inscribirse/desinscribirse si no eres el organizador
+        const attendButton = Button(
+          isAttending ? "Desinscribirse" : "Inscribirse",
+          isAttending ? "btn-unsubscribe" : "btn-subscribe",
+          async () => {
+            try {
+              const endpoint = `/api/v1/events/attend/${selectedEvent.id}`;
+              const method = isAttending ? "DELETE" : "POST";
 
-      eventDetailsDiv.appendChild(attendButton);
+              await fetchData(endpoint, method, null, {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              });
+
+              showMessage(
+                messageDiv,
+                isAttending
+                  ? "Te has desinscrito del evento."
+                  : "Te has inscrito al evento.",
+                false
+              );
+
+              isAttending = !isAttending;
+              attendButton.textContent = isAttending ? "Desinscribirse" : "Inscribirse";
+              attendButton.className = isAttending ? "btn-unsubscribe" : "btn-subscribe";
+
+              updateAttendeesCount(isAttending ? 1 : -1);
+            } catch (error) {
+              console.error("Error al inscribirse/desinscribirse:", error);
+              showMessage(messageDiv, "Hubo un problema al procesar la solicitud.", true);
+            }
+          }
+        );
+
+        eventDetailsDiv.appendChild(attendButton);
+      }
     } catch (error) {
       console.error("Error al cargar evento:", error);
       showMessage(errorDiv, "Error al cargar el evento.", true);

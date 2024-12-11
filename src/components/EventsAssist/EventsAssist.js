@@ -20,11 +20,20 @@ export const EventsAssist = async (parentDiv) => {
       const eventCard = document.createElement("div");
       eventCard.className = "event-card";
 
+      // Contenido del evento
       eventCard.innerHTML = `
-        <h2>${event.title}</h2>
+        <img src="${event.img}" alt="${event.title}" class="event-img" />
+        <h2 class="event-title">${event.title}</h2>
+        <p class="event-description">${event.description}</p>
         <p><strong>Ubicación:</strong> ${event.location}</p>
         <p><strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}</p>
       `;
+
+      // Añadir un evento al hacer clic en el evento para ir a EventPage
+      eventCard.addEventListener("click", () => {
+        const eventSlug = event.title.toLowerCase().replace(/ /g, "-");
+        window.navigateTo(`/event/${eventSlug}`);
+      });
 
       assistDiv.appendChild(eventCard);
     });
