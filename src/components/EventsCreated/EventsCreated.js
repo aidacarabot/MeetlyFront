@@ -1,4 +1,5 @@
 import { fetchData } from "../../utils/api/fetchData";
+import { EventCard } from "../EventCard/EventCard";
 import "./EventsCreated.css";
 
 export const EventsCreated = async (parentDiv) => {
@@ -18,22 +19,10 @@ export const EventsCreated = async (parentDiv) => {
     eventsContainer.className = "events-container";
 
     createdEvents.forEach((event) => {
-      const eventCard = document.createElement("div");
-      eventCard.className = "event-card";
-
-      eventCard.innerHTML = `
-        <h2>${event.title}</h2>
-        <p>${event.description}</p>
-        <p><strong>Ubicación:</strong> ${event.location}</p>
-        <p><strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}</p>
-        <p><strong>Asistentes:</strong> ${event.attendeesCount}</p>
-      `;
-
-      eventCard.addEventListener("click", () => {
+      const eventCard = EventCard(event, () => {
         const eventSlug = event.title.toLowerCase().replace(/ /g, "-");
         window.navigateTo(`/event/${eventSlug}`);
       });
-
       eventsContainer.appendChild(eventCard);
     });
 

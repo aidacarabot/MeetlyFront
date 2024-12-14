@@ -1,6 +1,6 @@
-import "./Button.css";
+import "./Button.css"; // Importamos el archivo CSS para estilizar el botón.
 
-//!
+//! Descripción de la función:
 /**
  * Crea un botón reutilizable.
  * @param {string} text - El texto que mostrará el botón.
@@ -11,14 +11,25 @@ import "./Button.css";
  */
 
 export const Button = (text, className, onClick, id) => {
-  const button = document.createElement("button"); // Creamos el botón.
-  button.className = className || ""; // Asignamos la clase CSS si existe.
-  button.textContent = text; // Establecemos el texto del botón.
+  const button = document.createElement("button"); // Creamos un elemento HTML de tipo botón.
+  
+  button.className = className || ""; 
+  // Asignamos la clase CSS proporcionada como parámetro. 
+  // Si no se proporciona ninguna clase, se deja como una cadena vacía.
 
-  if (id) button.id = id; // Asignamos un ID opcional al botón.
+  button.textContent = text; 
+  // Establecemos el texto del botón utilizando el parámetro `text`.
+
+  if (id) button.id = id; 
+  // Si se proporciona un `id`, lo asignamos al botón. Esto puede ser útil para estilos específicos 
+  // o identificación del botón en el DOM.
+
   if (onClick) {
-    button.addEventListener("click", onClick); // Asignamos la función al evento clic si existe.
+    button.addEventListener("click", onClick); 
+    // Si se proporciona una función `onClick`, se asocia al evento `click` del botón. 
+    // Esto permite que el botón ejecute la función cuando el usuario haga clic en él.
   }
 
-  return button; // Devolvemos el botón creado.
+  return button; 
+  // Retornamos el botón ya configurado, listo para ser insertado en el DOM.
 };
