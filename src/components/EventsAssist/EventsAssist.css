@@ -37,3 +37,13 @@
   margin: 10px 0;
   color: #555;
 }
+
+.info-message {
+  color: #3498db; /* Texto azul para mensajes informativos */
+  background-color: #ecf0f1; /* Fondo claro */
+  border: 1px solid #bdc3c7; /* Borde gris claro */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+}

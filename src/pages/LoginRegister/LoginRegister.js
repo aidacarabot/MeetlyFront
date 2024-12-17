@@ -1,28 +1,34 @@
-import { createPage } from "../../utils/functions/createPage";
-import { LoginForm } from "../../components/LoginForm/LoginForm";
-import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
+import { createPage } from "../../utils/functions/createPage"; // Utilidad para crear páginas en el DOM.
+import { LoginForm } from "../../components/LoginForm/LoginForm"; // Importa el formulario de login.
+import { RegisterForm } from "../../components/RegisterForm/RegisterForm"; // Importa el formulario de registro.
 import "./LoginRegister.css";
 
+// Función que renderiza la página de login o registro dependiendo de la ruta (path).
 export const LoginRegister = (path) => {
-  const div = createPage("loginRegister");
+  const div = createPage("loginRegister"); // Crea un contenedor para la página.
 
-  // Mostrar el formulario de inicio de sesión.
+  //! Función para mostrar el formulario de login.
   const showLoginForm = () => {
-    div.innerHTML = "";
-    div.appendChild(LoginForm());
+    div.innerHTML = ""; // Limpia el contenedor.
+    div.appendChild(LoginForm()); // Añade el formulario de login al contenedor.
   };
 
-  // Mostrar el formulario de registro con un callback para redirigir al inicio de sesión.
+  //! Función para mostrar el formulario de registro con la posibilidad de redirigir al login.
   const showRegisterForm = () => {
-    div.innerHTML = "";
+    div.innerHTML = ""; // Limpia el contenedor.
+    // Añade el formulario de registro y pasa las funciones de redirección:
     div.appendChild(RegisterForm(showLoginForm, showLoginForm));
+    // `showLoginForm` se usa como:
+    // - `onSuccessfulRegister`: Para redirigir al login después de un registro exitoso.
+    // - `goToLogin`: Para permitir que el enlace "Inicia Sesión" redirija al login.
   };
 
+  //! Decide qué formulario mostrar según la ruta actual.
   if (path === "/login") {
-    showLoginForm();
+    showLoginForm(); // Muestra el formulario de login.
   } else if (path === "/register") {
-    showRegisterForm();
+    showRegisterForm(); // Muestra el formulario de registro.
   }
 
-  return div;
+  return div; // Devuelve el contenedor principal.
 };

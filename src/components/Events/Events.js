@@ -1,8 +1,11 @@
 //!Es un componente de nivel superior que maneja una colección de eventos y renderiza múltiples EventCard. Crea y organiza múltiples EventCard dentro de un contenedor.
 
 import { fetchData } from "../../utils/api/fetchData"; // Importamos la función reutilizable para realizar peticiones al backend.
+import { showErrorMessage, showSuccessMessage } from "../../utils/functions/messages";
+import { navigateEventPage } from "../../utils/functions/NavigateEventPage";
 import { EventCard } from "../EventCard/EventCard"; // Importamos el componente reutilizable para renderizar tarjetas de eventos.
 import "./Events.css";
+
 
 //? Exportamos una función asíncrona que renderiza una lista de eventos.
 // parentDiv es un argumento que se pasa cuando llamas a la función Events. Representa el contenedor HTML (un div u otro elemento) donde se van a insertar las tarjetas de los eventos (EventCard). Por ejemplo:
@@ -46,29 +49,22 @@ export const Events = async (parentDiv, options = {}) => {
     //? Si no hay eventos, mostramos un mensaje al usuario.
     //Es decir, si en la llamada al backend no aparece nada o tiene 0 eventos creados, entonces se crea un mensaje para mostrar.
     if (!events || events.length === 0) {
-      const message = document.createElement("p");
-      message.textContent = "No hay eventos disponibles.";
-      eventsDiv.append(message); // Mostramos el mensaje en el contenedor de eventos.
+      showErrorMessage(eventsDiv, "No hay eventos disponibles.");
       return;// Finalizamos la función si no hay eventos.
     }
     
     //? Iteramos sobre los eventos obtenidos y los renderizamos como tarjetas.
     //Posiblemente hayan muchos eventos en el backend creados, por ello, tenemos que pasar por cada uno de ellos para renderizarlos correctamente.
-    events.forEach((event) => {
-      // Usamos el componente EventCard importado para crear la representación visual de cada evento. En "event" básicamente le estamos mandando los datos obtenidos (los eventos) del backend.
-      const eventCard = EventCard(event, () => {
-        //? Definimos lo que queremos que haga la función "onClick" que mandamos a "EventCard.js"
-        // Al hacer clic en una tarjeta, navegamos a la página del evento correspondiente.
-        const eventSlug = event.title.toLowerCase().replace(/ /g, "-"); // Convertimos el título del evento a un slug.Un slug es una parte de una URL que identifica una página específica de una manera legible y amigable para el usuario y los motores de búsqueda. Para redirigir ese evento a su página con el link: https://yourapp.com/event/mi-primer-evento.
-        window.navigateTo(`/event/${eventSlug}`); // Navegamos a la ruta del evento.
+          // Usamos el componente EventCard importado para crear la representación visual de cada evento. En "event" básicamente le estamos mandando los datos obtenidos (los eventos) del backend.
+      // Al hacer clic en una tarjeta, navegamos a la página del evento correspondiente.
+      events.forEach((event) => {
+        const eventCard = EventCard(event, () => navigateEventPage(event));
+        eventsDiv.appendChild(eventCard);
       });
-      eventsDiv.appendChild(eventCard); // Añadimos cada tarjeta al contenedor de eventos.
-    });
+      
   } catch (error) {
     // Si ocurre un error al cargar los eventos, lo mostramos en la consola y notificamos al usuario.
     console.error("Error al cargar los eventos:", error);
-    const errorMessage = document.createElement("p");
-    errorMessage.textContent = "Hubo un error al cargar los eventos. Por favor, intenta más tarde.";
-    eventsDiv.append(errorMessage);// Mostramos el mensaje de error en el contenedor de eventos.
+    showErrorMessage(eventsDiv, "Hubo un error al cargar los eventos. Por favor, intenta más tarde.");
   }
 };

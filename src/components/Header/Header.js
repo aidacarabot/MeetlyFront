@@ -1,75 +1,84 @@
 import { routes } from "../../routes/routes"; // Importamos las rutas definidas
-import { reload } from "../../utils/functions/reload"; // Función para manejar redirecciones
-import "./Header.css"; // Importamos estilos para el Header
+import { reload } from "../../utils/functions/reload"; // Importamos la función reload para manejar redirecciones sin recargar la página.
+import "./Header.css";
 
 export const Header = () => {
-  const header = document.createElement("header"); // Creamos el contenedor principal del Header
-  const nav = document.createElement("nav"); // Creamos el contenedor de navegación
-  const ul = document.createElement("ul"); // Creamos la lista para las rutas
+  //! 1. Crear el contenedor principal del Header.
+  const header = document.createElement("header"); // Creamos un elemento <header> que será el contenedor principal del encabezado.
+  const nav = document.createElement("nav"); // Creamos un elemento <nav> para contener la navegación.
+  const ul = document.createElement("ul"); // Creamos un elemento <ul> para la lista de enlaces.
 
-  // Obtenemos el nombre de usuario desde el localStorage
-  const username = localStorage.getItem("username");
+  //! 2. Obtener el nombre de usuario desde el localStorage.
+  const username = localStorage.getItem("username"); // Recuperamos el nombre de usuario almacenado, si existe.
 
-  // Verifica si el usuario está autenticado
+  //! 3. Verificar si el usuario está autenticado.
   const isAuthenticated = !!localStorage.getItem("token");
+   // Si el token está presente en el localStorage, el usuario está autenticado.
+  // `!!` convierte el valor a un booleano.
 
-  // Agregamos un mensaje de bienvenida si el usuario está autenticado
+  // Debugging: Verifica los valores de `isAuthenticated` y `username`.
+  console.log({ isAuthenticated, username }); 
+
+  //! 4. Agregar un mensaje de bienvenida si el usuario está autenticado.
   if (isAuthenticated && username) {
-    const welcomeText = document.createElement("p");
+    const welcomeText = document.createElement("p");  // Creamos un elemento <p>.
     welcomeText.textContent = `Bienvenid@ ${username}`; // Mensaje personalizado
     welcomeText.className = "welcome-text"; // Clase CSS para el mensaje
     header.appendChild(welcomeText); // Agregamos el mensaje al Header
   }
 
-  // Seleccionamos las rutas que deben aparecer en el menú de navegación
+  //! 5. Seleccionar las rutas que aparecerán en el menú.
   const selectedRoutes = [
     routes.find((route) => route.path === "/inicio"), // Ruta Inicio/Home
     routes.find((route) => route.path === "/perfil"), // Ruta Perfil
   ];
 
   if (isAuthenticated) {
-    // Agregamos la opción "Cerrar Sesión" si el usuario está autenticado
+    //! 6. Si el usuario está autenticado, añadimos una opción para "Cerrar Sesión".
     selectedRoutes.push({
       path: "/", // Ruta a la página principal (Hero)
-      text: "Cerrar Sesión",
+      text: "Cerrar Sesión", // Texto del enlace.
       action: () => {
-        // Elimina los datos del localStorage y redirige al Hero
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        window.navigateTo("/"); // Redirige a la página principal
+        // Acción al hacer clic en "Cerrar Sesión".
+        localStorage.removeItem("token"); // Eliminamos el token del localStorage.
+        localStorage.removeItem("username"); // Eliminamos el nombre de usuario del localStorage.
+        window.navigateTo("/"); // Redirigimos al usuario a la página principal.
       },
     });
   } else {
-    // Agregamos "Iniciar Sesión" si el usuario no está autenticado
+    //! 7. Si el usuario no está autenticado, añadimos una opción para "Iniciar Sesión".
     selectedRoutes.push(routes.find((route) => route.path === "/login"));
   }
 
-  // Iteramos sobre las rutas seleccionadas para construir el menú
+ //! 8. Construir el menú de navegación.
   selectedRoutes.forEach((route) => {
-    const li = document.createElement("li"); // Creamos un elemento de lista
-    const a = document.createElement("a"); // Creamos un enlace
+    const li = document.createElement("li"); // Creamos un elemento <li> para cada enlace.
+    const a = document.createElement("a"); // Creamos un elemento <a> (enlace).
 
-    a.textContent = route.text; // Texto del enlace
-    a.href = route.path; // Ruta del enlace
+    a.textContent = route.text; // Establecemos el texto del enlace.
+    a.href = route.path; // Establecemos la ruta del enlace.
 
     if (route.action) {
-      // Si la ruta tiene una acción personalizada, la asignamos
+      //! 9. Si la ruta tiene una acción personalizada, la asignamos.
       a.addEventListener("click", (e) => {
-        e.preventDefault(); // Evita la recarga del navegador
-        route.action(); // Ejecuta la acción asociada
+        e.preventDefault(); // Evitamos que el navegador recargue la página.
+        route.action(); // Ejecutamos la acción personalizada.
       });
     } else {
-      // Si no hay acción personalizada, usamos reload para navegar
-      a.addEventListener("click", (e) => reload(e, route));
+      //! 10. Si no hay una acción personalizada, usamos `reload` para manejar la navegación.
+      a.addEventListener("click", (e) => reload(e, route)); // Redirigimos a la página asociada a la ruta sin recargar.
     }
 
-    li.appendChild(a); // Agregamos el enlace al elemento de lista
-    ul.appendChild(li); // Agregamos el elemento de lista a la lista principal
+    li.appendChild(a); // Añadimos el enlace al elemento <li>.
+    ul.appendChild(li); // Añadimos el <li> a la lista <ul>.
   });
 
-  nav.appendChild(ul); // Agregamos la lista de navegación al nav
-  header.appendChild(nav); // Agregamos el nav al Header
+  //! 11. Añadir la lista al contenedor de navegación.
+  nav.appendChild(ul); // Insertamos la lista <ul> en el <nav>.
 
-  // Insertamos el Header al inicio del <body>
-  document.body.prepend(header);
+  //! 12. Insertar el contenedor de navegación en el Header.
+  header.appendChild(nav); // Insertamos el <nav> en el <header>.
+
+  //! 13. Insertar el Header al inicio del <body>.
+  document.body.prepend(header); // Colocamos el Header como el primer hijo del <body>.
 };

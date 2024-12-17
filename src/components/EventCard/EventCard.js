@@ -28,9 +28,6 @@ export const EventCard = (event, onClick) => {
   const date = document.createElement("p");
   date.innerHTML = `<strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}`; // Convertimos la fecha del evento a un formato legible.
 
-  //? configuración del número de asistentes del evento
-  const attendeesCount = document.createElement("p");
-  attendeesCount.innerHTML = `<strong>Asistentes:</strong> ${event.attendeesCount}`; // Mostramos el conteo de asistentes con un formato destacado.
 
   // Si se proporciona una función `onClick`, la asignamos al evento `click` de la tarjeta.
   if (onClick) {
@@ -38,7 +35,7 @@ export const EventCard = (event, onClick) => {
     card.classList.add("clickable"); // Añadimos una clase CSS para indicar que la tarjeta es interactiva.
   }
 
-  card.append(img, title, description, location, date, attendeesCount); // Añadimos todos los elementos al contenedor principal de la tarjeta.
+  card.append(img, title, description, location, date ); // Añadimos todos los elementos al contenedor principal de la tarjeta.
 
   return card;  // Devolvemos la tarjeta completa para ser usada en otro lugar.
 };

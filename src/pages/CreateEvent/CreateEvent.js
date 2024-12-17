@@ -1,14 +1,15 @@
 import { createPage } from "../../utils/functions/createPage";
 import { fetchData } from "../../utils/api/fetchData";
-import { showError } from "../../utils/functions/errorHandling";
+import { showSuccessMessage, showErrorMessage } from "../../utils/functions/messages";
 import "./CreateEvent.css";
 
 export const CreateEvent = () => {
-  const page = createPage("create-event");
+  const page = createPage("create-event"); // Crea un contenedor <div> para la página con el ID "create-event".
 
-  const form = document.createElement("form");
+  const form = document.createElement("form"); // Creamos el formulario de creación de eventos.
   form.className = "create-event-form";
 
+  // HTML interno del formulario
   form.innerHTML = `
     <h2>Crear Evento</h2>
     <input type="text" name="title" placeholder="Título del Evento" required />
@@ -20,43 +21,41 @@ export const CreateEvent = () => {
     <div id="messages"></div>
   `;
 
-  const messagesDiv = form.querySelector("#messages");
+  const messagesDiv = form.querySelector("#messages"); // Seleccionamos el contenedor donde se mostrarán los mensajes.
 
+  // Escuchamos el evento de envío del formulario.
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    messagesDiv.innerHTML = ""; // Limpiar mensajes anteriores
+    e.preventDefault(); // Prevenimos el comportamiento predeterminado del formulario (recargar la página).
+    messagesDiv.innerHTML = ""; // Limpiamos cualquier mensaje previo.
 
-    const formData = new FormData(form); // Crear un FormData para enviar el archivo y datos
+    //! Creamos un objeto FormData para manejar los datos del formulario.
+    const formData = new FormData(form); // FormData se utiliza porque incluye la capacidad de enviar archivos.
 
     try {
+      // Hacemos una solicitud POST al endpoint de creación de eventos.
       const response = await fetchData("/api/v1/events", "POST", formData, {
         Authorization: `Bearer ${localStorage.getItem("token")}`, // Enviar el token si es necesario
       });
 
-      // Mostrar mensaje de éxito
-      const successMessage = document.createElement("p");
-      successMessage.className = "success-message";
-      successMessage.textContent = "Evento creado exitosamente.";
-      messagesDiv.appendChild(successMessage);
+      // Si la solicitud es exitosa, mostramos un mensaje de éxito.
+      showSuccessMessage(messagesDiv, "Evento creado exitosamente.");
 
-      // Reiniciar formulario
-      form.reset();
+      form.reset(); // Reiniciamos el formulario para que quede limpio.
 
-      // Redirigir a la página de inicio después de unos segundos
+      // Redirigimos al usuario a la página de inicio después de 2 segundos.
       setTimeout(() => window.navigateTo("/inicio"), 2000);
     } catch (error) {
-      console.error("Error al crear el evento:", error);
+      console.error("Error al crear el evento:", error); // Si hay un error, lo mostramos en la consola y al usuario.
 
-      // Mostrar mensaje de error
-      const errorElement = document.createElement("p");
-      errorElement.className = "error-message";
-      errorElement.textContent =
-        error.message || "Hubo un problema al crear el evento.";
-      messagesDiv.appendChild(errorElement);
+      // Mostramos un mensaje de error utilizando messages.js.
+      showErrorMessage(
+        messagesDiv,
+        error.message || "Hubo un problema al crear el evento."
+      );
     }
   });
 
-  page.appendChild(form);
+  page.appendChild(form);  // Añadimos el formulario al contenedor principal de la página.
 
-  return page;
+  return page; // Devolvemos la página completa para que sea renderizada.
 };
