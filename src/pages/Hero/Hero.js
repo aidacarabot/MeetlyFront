@@ -71,15 +71,18 @@ const createLoginRegisterButtons = () => {
   return buttonContainer; // Devolvemos el contenedor con los botones.
 };
 
-//! Función que crea un botón para acceder a más eventos.
+//! Función que crea un botón para acceder a más eventos con diseño de UIverse.
 const createAccessAllEventsButton = () => {
   return Button(
-    "Inicia Sesión Para Acceder A Todos Ellos!", // Texto del botón que invita al usuario a iniciar sesión.
-    "btn-access-all", // Clase CSS para estilizar el botón.
+    "¡Entra para disfrutar de todos ellos!", // Texto del botón.
+    "uiverse-access-btn", // Clase CSS para el diseño específico del botón.
     () => {
       // Acción al hacer clic en el botón: desplazarse al inicio de la página.
       window.scrollTo({ top: 0, behavior: "smooth" }); // Redirige al inicio con desplazamiento suave.
-    }
+    },
+    "access-button-id", // ID opcional.
+    true, // Indicamos que usamos un <span> en el botón.
+    "uiverse-access-btn-top" // Clase específica para el <span>.
   );
 };
 
@@ -90,7 +93,7 @@ export const Hero = () => {
   heroDiv.appendChild(createHeroHeader()); // Título y descripción.
 
   // Renderizamos una lista de eventos como carrusel.
-  Events(heroDiv, { title: "Echa un vistazo a algunos de los eventos disponibles:" }, true);
+  Events(heroDiv, { title: "Explora los eventos que te están esperando:" }, true);
 
   heroDiv.appendChild(createAccessAllEventsButton()); // Botón de acceso a eventos.
 

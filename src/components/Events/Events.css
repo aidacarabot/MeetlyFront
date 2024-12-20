@@ -13,13 +13,11 @@
 .slider {
   overflow: hidden;
   position: relative;
-  width: 100%;
+  width: 95%;
   border-radius: 30px;
-
 }
 
 .slide-track {
-  background-color: rgba(0, 0, 0, 0.772); /* Gris con 70% opacidad */
   padding: 50px;
   display: flex;
   animation: scroll 50s linear infinite; /* Aquí ajustas la velocidad */
@@ -43,23 +41,5 @@
   }
 }
 
-.slider::before,
-.slider::after {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 100%;
-  z-index: 2;
-   background: linear-gradient(to right, rgb(44, 44, 44), rgba(255, 255, 255, 0));
-}
 
-.slider::before {
-  left: 0;
-  top: 0;
-}
 
-.slider::after {
-  right: 0;
-  top: 0;
-  transform: rotateZ(180deg);
-}
