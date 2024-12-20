@@ -1,11 +1,14 @@
 .event-card {
+  width: 300px; /* Ancho fijo para cada tarjeta */
+  height: 400px; /* Alto fijo para cada tarjeta */
   display: flex;
   flex-direction: column;
+  gap: 30px;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 4px solid rgb(0, 0, 0);
+  border-radius: 30px;
   padding: 16px;
-  margin: 12px;
+  margin: 10px; /* Añade margen entre tarjetas */
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
@@ -15,22 +18,27 @@
   transform: scale(1.05);
 }
 
-.event-card img {
+.event-card-img {
   max-width: 100%;
-  height: auto;
+  height: 120px; /* Ajusta la altura de la imagen */
+  object-fit: cover; /* Mantiene la proporción sin distorsión */
   border-radius: 8px;
   margin-bottom: 12px;
 }
 
-.event-card h2 {
-  font-size: 18px;
-  margin-bottom: 8px;
+.event-card-title {
+  font-size: 20px;
   text-align: center;
 }
 
-.event-card p {
-  margin: 4px 0;
-  font-size: 14px;
+.event-card-location {
+  font-size: 15px;
+  text-align: center;
+}
+
+.event-card-date {
+  font-size: 15px;
+  text-align: center;
 }
 
 .event-card.clickable {

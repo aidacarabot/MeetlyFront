@@ -1,4 +1,4 @@
-const BASE_URL = "https://meetly-db.vercel.app"; //donde guardamos el servidor de nuestro backend
+const BASE_URL = "https://meetly-database.vercel.app"; //donde guardamos el servidor de nuestro backend
 
 //? 	•	data: Si necesitas enviar información al servidor (como los datos de un nuevo usuario o un archivo), la pasas aquí. Si no necesitas enviar nada, lo dejas vacío. 
 //?   •	headers: A veces el servidor necesita información extra, como un “token de seguridad”. Los headers son como una lista de instrucciones adicionales que acompañan la solicitud.

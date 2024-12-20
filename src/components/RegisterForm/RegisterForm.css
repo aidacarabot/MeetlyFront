@@ -1,64 +1,106 @@
-.register-form {
-  max-width: 300px;
-  margin: 0 auto;
+/* Contenedor principal adaptado */
+.uiverse-register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background: #e3e3e3;
+  border-radius: 30px;
+  width: 350px;
+  box-shadow: 4px 4px black;
+  border: 3px solid black;
 }
 
-.register-form h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.register-form input {
-  width: 100%;
-  padding: 10px;
+.uiverse-title {
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: x-large;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
 }
 
-.register-form button {
+/* InputBox */
+.uiverse-inputBox {
+  position: relative;
+  width: 250px;
+}
+
+.uiverse-input {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
-  color: white;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  outline: none;
+  font-size: 1em;
+  background: transparent;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  border-bottom-left-radius: 8px;
+  transition: 0.1s;
 }
 
-.register-form button:hover {
-  background-color: #0056b3;
+.uiverse-placeholder {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  pointer-events: none;
+  font-size: 12px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: 0.5s;
 }
 
-#error-messages {
-  margin-top: 15px;
+.uiverse-input:valid ~ .uiverse-placeholder,
+.uiverse-input:focus ~ .uiverse-placeholder {
+  transform: translateX(113px) translateY(-15px);
+  font-size: 0.8em;
+  padding: 5px 10px;
+  background: #000;
+  color: #fff;
+  letter-spacing: 0.2em;
+  border-radius: 8px;
 }
 
-#error-messages p {
-  color: #dc3545;
-  margin: 5px 0;
-  font-size: 14px;
+.uiverse-input:valid,
+.uiverse-input:focus {
+  border: 2px solid #000;
+  border-radius: 8px;
 }
 
-#success-message {
-  color: #28a745;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  border-radius: 4px;
+/* Botón de enviar */
+.uiverse-submit {
+  width: 200px;
   padding: 10px;
-  margin-top: 15px;
-  text-align: center;
+  border: 2px solid #000;
+  border-radius: 15px;
+  background-color: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  transition: 0.5s;
 }
 
-@media (max-width: 400px) {
-  .register-form {
-    width: 90%;
-  }
+.uiverse-submit:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Texto de redirección */
+.uiverse-signin {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.uiverse-signin .uiverse-link {
+  color: royalblue;
+  cursor: pointer;
+  font-weight: normal; /* Esto asegura que el texto no sea negrita */
+}
+
+.uiverse-signin .uiverse-link:hover {
+  text-decoration: underline;
 }

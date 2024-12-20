@@ -1,0 +1,43 @@
+#loginRegister {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 50px;
+}
+
+/* Estilo único para el botón "Volver al menú principal" */
+.back-button {
+  --back-button_radius: 0.75em;
+  --back-button_color: #e8e8e8;
+  --back-button_outline_color: #000000;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--back-button_radius);
+  background: var(--back-button_outline_color);
+}
+
+.back-button .back-button-span {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid var(--back-button_outline_color);
+  border-radius: var(--back-button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--back-button_color);
+  color: var(--back-button_outline_color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+
+.back-button:hover .back-button-span {
+  /* Levanta el botón al hacer hover */
+  transform: translateY(-0.33em);
+}
+
+.back-button:active .back-button-span {
+  /* Baja el botón al hacer clic */
+  transform: translateY(0);
+}

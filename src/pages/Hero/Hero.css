@@ -1,22 +1,101 @@
+/* Estilos base del contenedor Hero */
 #hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 80px 20px;
-  color: white;
+  padding: 40px 20px 0px 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-header-container {
+  display: flex;
+  padding: 50px 60px 50px 60px;
+  background: rgba(109, 108, 108, 0.572); /* Fondo gris con transparencia al 70% */
+  border-radius: 30px;
+  gap: 100px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
 }
 
 #hero h1 {
   font-size: 3rem;
   margin-bottom: 10px;
   font-weight: 700;
+  margin: 30px;
 }
 
-#hero p {
+.description-hero{
   font-size: 1.2rem;
   margin-top: 0;
   max-width: 600px;
   line-height: 1.6;
+  margin: 30px;
+}
+
+/* Botones de Login/Register en Hero */
+#hero .btn-login-register {
+  --button_radius: 0.75em;
+  --button_color: #e8e8e8; /* Color de fondo */
+  --button_outline_color: #000000; /* Color del contorno */
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--button_radius);
+  background: var(--button_outline_color);
+  padding: 0;
+  margin: 10px; /* Espacio entre botones */
+}
+
+#hero .btn-login-register .button-top-hero-span {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid var(--button_outline_color); /* Contorno */
+  border-radius: var(--button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  transform: translateY(-0.2em); /* Posición inicial */
+  transition: transform 0.1s ease; /* Transición suave */
+}
+
+#hero .btn-login-register:hover .button-top-hero-span {
+  transform: translateY(-0.33em); /* Efecto hover */
+}
+
+#hero .btn-login-register:active .button-top-hero-span {
+  transform: translateY(0); /* Efecto al presionar */
+}
+
+/* Botón de "access all" en Hero */
+#hero .btn-access-all {
+  padding: 15px 20px;
+  border: none;
+  outline: none;
+  background-color: #151515; /* Fondo oscuro */
+  color: #eee; /* Texto claro */
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+  margin: 50px;
+}
+
+#hero .btn-access-all:hover {
+  transform: translateY(-3px); /* Efecto hover */
+}
+
+#hero .button-accessall-span {
+  color: #aaa; /* Color del texto adicional en el span */
+}
+
+#hero .event-card.clickable {
+  cursor: default; /* Cambiamos el cursor para que no sea interactivo */
 }
