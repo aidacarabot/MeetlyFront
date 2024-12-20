@@ -4,50 +4,70 @@ import { showSuccessMessage, showErrorMessage } from "../../utils/functions/mess
 import "./CreateEvent.css";
 
 export const CreateEvent = () => {
-  const page = createPage("create-event"); // Crea un contenedor <div> para la página con el ID "create-event".
+  const page = createPage("create-event");
 
-  const form = document.createElement("form"); // Creamos el formulario de creación de eventos.
-  form.className = "create-event-form";
+  const modal = document.createElement("div");
+  modal.className = "merenge-modal";
 
-  // HTML interno del formulario
-  form.innerHTML = `
-    <h2>Crear Evento</h2>
-    <input type="text" name="title" placeholder="Título del Evento" required />
-    <textarea name="description" placeholder="Descripción del Evento" required></textarea>
-    <input type="text" name="location" placeholder="Ubicación" required />
-    <input type="datetime-local" name="date" required />
-    <input type="file" name="img" accept="image/*" required />
-    <button type="submit">Crear Evento</button>
-    <div id="messages"></div>
+  modal.innerHTML = `
+    <div class="merenge-modal__header">
+      <span class="merenge-modal__title">Crear Evento</span>
+    </div>
+
+    <form class="merenge-modal__body merenge-create-event-form">
+      <div class="merenge-input">
+        <label class="merenge-input__label">Título del Evento</label>
+        <input class="merenge-input__field" type="text" name="title" required />
+      </div>
+
+      <div class="merenge-input">
+        <label class="merenge-input__label">Descripción</label>
+        <textarea class="merenge-input__field merenge-input__field--textarea" name="description" required></textarea>
+      </div>
+
+      <div class="merenge-input">
+        <label class="merenge-input__label">Ubicación</label>
+        <input class="merenge-input__field" type="text" name="location" required />
+      </div>
+
+      <div class="merenge-input">
+        <label class="merenge-input__label">Fecha</label>
+        <input class="merenge-input__field" type="datetime-local" name="date" required />
+      </div>
+
+      <div class="merenge-input">
+        <label class="merenge-input__label">Imagen</label>
+        <input class="merenge-input__field" type="file" name="img" accept="image/*" required />
+      </div>
+
+      <div class="merenge-modal__footer">
+        <button type="submit" class="merenge-button merenge-button--primary">Crear Evento</button>
+      </div>
+    </form>
+
+    <div id="merenge-messages" class="merenge-messages"></div>
   `;
 
-  const messagesDiv = form.querySelector("#messages"); // Seleccionamos el contenedor donde se mostrarán los mensajes.
+  const form = modal.querySelector(".merenge-create-event-form");
+  const messagesDiv = modal.querySelector("#merenge-messages");
 
-  // Escuchamos el evento de envío del formulario.
+  // Manejador de envío del formulario
   form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Prevenimos el comportamiento predeterminado del formulario (recargar la página).
-    messagesDiv.innerHTML = ""; // Limpiamos cualquier mensaje previo.
+    e.preventDefault();
+    messagesDiv.innerHTML = "";
 
-    //! Creamos un objeto FormData para manejar los datos del formulario.
-    const formData = new FormData(form); // FormData se utiliza porque incluye la capacidad de enviar archivos.
+    const formData = new FormData(form);
 
     try {
-      // Hacemos una solicitud POST al endpoint de creación de eventos.
       const response = await fetchData("/api/v1/events", "POST", formData, {
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Enviar el token si es necesario
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       });
 
-      // Si la solicitud es exitosa, mostramos un mensaje de éxito.
       showSuccessMessage(messagesDiv, "Evento creado exitosamente.");
-
-      form.reset(); // Reiniciamos el formulario para que quede limpio.
-
-      // Redirigimos al usuario a la página de inicio después de 2 segundos.
+      form.reset();
       setTimeout(() => window.navigateTo("/inicio"), 2000);
     } catch (error) {
-      console.error("Error al crear el evento:", error); // Si hay un error, lo mostramos en la consola y al usuario.
-
-      // Mostramos un mensaje de error utilizando messages.js.
+      console.error("Error al crear el evento:", error);
       showErrorMessage(
         messagesDiv,
         error.message || "Hubo un problema al crear el evento."
@@ -55,7 +75,6 @@ export const CreateEvent = () => {
     }
   });
 
-  page.appendChild(form);  // Añadimos el formulario al contenedor principal de la página.
-
-  return page; // Devolvemos la página completa para que sea renderizada.
+  page.appendChild(modal);
+  return page;
 };
