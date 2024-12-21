@@ -1,8 +1,19 @@
-/* General container for Home */
 #home {
   padding: 20px;
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
 }
+
+#home > p {
+  margin: 30px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 0px rgb(0, 0, 0);
+  font-size: 18px;
+}
+
 .uiverse-create-event-button {
   /* Variables */
   --button-radius: 0.75em;
@@ -16,6 +27,7 @@
   background: var(--button-outline-color);
   padding: 0;
   outline: none;
+  margin: 30px;
 }
 
 .uiverse-button-top {

@@ -8,7 +8,7 @@ import "./Events.css";
 //? Exportamos una función asíncrona que renderiza una lista de eventos.
 // El argumento `isCarousel` activa el modo carrusel si es `true`.
 export const Events = async (parentDiv, options = {}, isCarousel = false) => {
-  const { endpoint = "/api/v1/events", title = "Echa un vistazo a los eventos actuales..." } = options;
+  const { endpoint = "/api/v1/events", title = "Eventos disponibles:" } = options;
 
   const p = document.createElement("p"); // Creamos el título de la sección.
   p.textContent = title;
