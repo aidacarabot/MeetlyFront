@@ -1,3 +1,4 @@
+//! Importación de dependencias y utilidades
 import { Button } from "../../components/Button/Button";
 import { Events } from "../../components/Events/Events";
 import { routes } from "../../routes/routes";
@@ -6,12 +7,13 @@ import "./Hero.css";
 
 //! Función que crea el título y la descripción de la página Hero.
 const createHeroHeader = () => {
-  const fragment = document.createDocumentFragment(); //? Creamos un fragmento para agrupar múltiples nodos. Un DocumentFragment es un contenedor especial en JavaScript que te permite almacenar y organizar nodos del DOM (elementos como div, p, etc.) antes de insertarlos en el documento. Es como un “lienzo invisible” en el que puedes construir una estructura de elementos sin que estos afecten directamente al DOM visible mientras los estás creando. Cuando estás listo, puedes añadir el fragmento al DOM con todos sus elementos, y este proceso es más eficiente que insertar cada elemento individualmente.
+  const fragment = document.createDocumentFragment(); //? Creamos un fragmento para agrupar múltiples nodos.
 
-   //! Creamos el contenedor principal que agrupa title-description y botones.
-   const heroHeaderContainer = document.createElement("div");
-   heroHeaderContainer.className = "hero-header-container"; // Clase para el contenedor.
+  //! Creamos el contenedor principal que agrupa title-description y botones.
+  const heroHeaderContainer = document.createElement("div");
+  heroHeaderContainer.className = "hero-header-container"; // Clase para el contenedor.
 
+  //! Contenedor para el título y descripción.
   const titleDescription = document.createElement("div");
   titleDescription.className = "title-description-div";
 
@@ -19,12 +21,13 @@ const createHeroHeader = () => {
   h1.textContent = "Meetly"; // Establecemos el texto del título.
 
   const description = document.createElement("p"); // Creamos una descripción para la página.
-  description.textContent = "¿Aburrido de no saber qué hacer? Aquí encontrarás los eventos más chulos cerca de ti: conciertos, expos, talleres y planes que te sacan de la rutina. Explora, apúntate con un clic y vive nuevas experiencias mientras conoces gente con tus mismos intereses. Porque los mejores recuerdos empiezan con un buen plan. ¿Te apuntas? 🎉"; // Añadimos el texto descriptivo.
+  description.textContent =
+    "¿Aburrido de no saber qué hacer? Aquí encontrarás los eventos más chulos cerca de ti: conciertos, expos, talleres y planes que te sacan de la rutina. Explora, apúntate con un clic y vive nuevas experiencias mientras conoces gente con tus mismos intereses. Porque los mejores recuerdos empiezan con un buen plan. ¿Te apuntas? 🎉";
   description.className = "description-hero";
 
   titleDescription.append(h1, description);
 
-  //! Contenedor de botones (llamada a función).
+  //! Contenedor de botones (llamada a función auxiliar).
   const buttonContainer = createLoginRegisterButtons();
 
   //! Añadimos los contenedores al contenedor principal.
@@ -48,22 +51,22 @@ const createLoginRegisterButtons = () => {
 
   //! Botón de "Iniciar Sesión"
   const loginButton = Button(
-    loginRoute.text,           // Texto: "Iniciar Sesión".
-    "btn-login-register",      // Clase principal del botón.
+    loginRoute.text, // Texto: "Iniciar Sesión".
+    "btn-login-register", // Clase principal del botón.
     () => window.navigateTo("/login"), // Acción al hacer clic.
-    "",                        // ID opcional (vacío en este caso).
-    true,                      // Indicamos que queremos usar un `span`.
-    "button-top-hero-span"     // Clase específica para el span.
+    "", // ID opcional (vacío en este caso).
+    true, // Indicamos que queremos usar un `span`.
+    "button-top-hero-span" // Clase específica para el span.
   );
 
   //! Botón de "Registrarse"
   const registerButton = Button(
-    registerRoute.text, 
-    "btn-login-register", 
+    registerRoute.text,
+    "btn-login-register",
     () => window.navigateTo("/register"),
-    "", 
-    true, 
-    "button-top-hero-span"     // Clase específica para el span.
+    "",
+    true,
+    "button-top-hero-span" // Clase específica para el span.
   );
 
   //? Añadimos ambos botones al contenedor.
@@ -88,12 +91,12 @@ const createAccessAllEventsButton = () => {
 
 //! Función principal para renderizar la página Hero.
 export const Hero = () => {
-  const heroDiv = createPage("hero");
+  const heroDiv = createPage("hero"); //? Creamos el contenedor principal.
 
   heroDiv.appendChild(createHeroHeader()); // Título y descripción.
 
-  // Renderizamos una lista de eventos como carrusel.
-  Events(heroDiv, { title: "Explora los eventos que te están esperando:" }, true);
+  //! Renderizamos una lista de eventos como carrusel con título, pero sin buscador.
+  Events(heroDiv, { title: "Explora los eventos que te están esperando:", showSearchBox: false }, true);
 
   heroDiv.appendChild(createAccessAllEventsButton()); // Botón de acceso a eventos.
 

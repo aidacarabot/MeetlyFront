@@ -1,16 +1,26 @@
 /* Contenedor de eventos normal */
 .events-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  display: flex; /* Flexbox para organizar las cartas */
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+  justify-content: center; /* Centrar las cartas horizontalmente */
+  gap: 20px; /* Espacio entre las cartas */
   padding: 20px;
   background-color: #f5f5f5ab;
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  height: 100%;
+  height: auto; /* Altura dinámica según contenido */
   width: 80%;
   border-radius: 40px;
+}
+
+/* Estilos específicos para las cartas */
+.event-card {
+  flex: 1 1 calc(25% - 20px); /* 4 columnas con espacio (ajusta según tamaño) */
+  max-width: calc(25% - 20px); /* 4 columnas con espacio */
+  box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+  display: flex;
+  flex-direction: column; /* Para organizar contenido dentro de la carta */
+  align-items: center;
 }
 
 /* Estilos del Carrusel */
@@ -24,12 +34,13 @@
 .slide-track {
   padding: 50px;
   display: flex;
+  flex-wrap: nowrap; /* Evita que los elementos hagan wrap en modo carrusel */
   animation: scroll 50s linear infinite; /* Aquí ajustas la velocidad */
   width: calc(300px * 14); /* Ajusta el ancho total de las tarjetas */
 }
 
 .slide {
-  /* width: 300px; */
+  width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,5 +56,18 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  /* Ajuste para pantallas más pequeñas: 2 columnas */
+  .event-card {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+}
 
-
+@media screen and (max-width: 480px) {
+  /* Ajuste para pantallas aún más pequeñas: 1 columna */
+  .event-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}

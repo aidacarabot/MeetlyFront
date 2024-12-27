@@ -43,18 +43,11 @@
   font-weight: 700;
 }
 
-.description-hero{
+.description-hero {
   font-size: 1.2rem;
   margin-top: 0;
   max-width: 600px;
   line-height: 1.6;
-}
-
-#hero > p {
-  font-size: 25px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 0px rgb(0, 0, 0);
 }
 
 /* Botones de Login/Register en Hero */
@@ -71,6 +64,32 @@
   padding: 0;
   margin: 10px; /* Espacio entre botones */
 }
+
+.uiverse-access-btn {
+    /* Variables */
+    --button-radius: 0.75em;
+    --button-color: #e8e8e8;
+    --button-outline-color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--button-radius);
+    background: var(--button-outline-color); /* Fondo externo del botón */
+    display: inline-block; /* Asegura que el botón se comporte correctamente */
+    margin: 50px;
+}
+
+/*! Estilos base del contenedor Hero */
+
+
+#hero > p {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 0px rgb(0, 0, 0);
+}
+
 
 #hero .btn-login-register .button-top-hero-span {
   display: block;
@@ -90,22 +109,6 @@
 
 #hero .btn-login-register:active .button-top-hero-span {
   transform: translateY(0); /* Efecto al presionar */
-}
-
-/* Botón principal */
-.uiverse-access-btn {
-  /* Variables */
-  --button-radius: 0.75em;
-  --button-color: #e8e8e8;
-  --button-outline-color: #000000;
-  font-size: 17px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  border-radius: var(--button-radius);
-  background: var(--button-outline-color); /* Fondo externo del botón */
-  display: inline-block; /* Asegura que el botón se comporte correctamente */
-  margin: 50px;
 }
 
 /* Estilo interno del botón (span) */

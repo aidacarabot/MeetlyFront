@@ -4,9 +4,9 @@ import { Button } from "../../components/Button/Button";
 import "./Home.css";
 
 export const Home = () => {
-  const homeDiv = createPage("home");
+  const homeDiv = createPage("home"); // Crea la página principal para Home
 
-  // Botón para crear evento usando Button.js
+  //! Botón para crear evento usando Button.js
   const createEventButton = Button(
     "Crear Evento", // Texto del botón
     "uiverse-create-event-button", // Clase CSS única
@@ -16,9 +16,10 @@ export const Home = () => {
     "uiverse-button-top" // Clase CSS única para el <span>
   );
 
-  homeDiv.appendChild(createEventButton);
+  homeDiv.appendChild(createEventButton); // Añade el botón a la página
 
-  Events(homeDiv); // Usa el componente Events
+  //! Renderizar eventos con buscador habilitado
+  Events(homeDiv, { title: "Eventos disponibles:", showSearchBox: true });
 
-  return homeDiv;
+  return homeDiv; // Retorna el contenedor principal
 };
