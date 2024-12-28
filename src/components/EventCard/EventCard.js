@@ -1,41 +1,41 @@
-//! Es un componente individual que representa la visualización de un evento específico. Renderiza la información de un evento (como título, imagen, descripción, ubicación, fecha, asistentes).
+//! Es un componente individual que representa la visualización de un evento específico.
+// Renderiza la información de un evento (como título, imagen, descripción, ubicación, fecha, asistentes).
 
 import "./EventCard.css";
 
-//con "event" que recibamos accedemos a todo: img,title, asistentes, etc... y asi creamos las cartas correctamente.
-export const EventCard = (event, onClick) => {
-  const card = document.createElement("div");   // Creamos el contenedor principal para la tarjeta del evento.
-  card.className = "event-card"; //clase css
+//! Este componente acepta un objeto `event` que contiene datos del evento, 
+// un callback `onClick` para manejar eventos de clic (opcional) y una clase personalizada `customClass`.
+export const EventCard = (event, onClick, customClass = "") => {
+  const card = document.createElement("div");
+  card.className = `event-card ${customClass}`; // Añade la clase personalizada
 
-  //? configurar imagen
+  // Configuración de la imagen
   const img = document.createElement("img");
-  img.src = event.img; //url de la imagen del evento
-  img.alt = event.title; //titulo alt para accesibilidad
+  img.src = event.img;
+  img.alt = event.title;
   img.className = "event-card-img";
 
-  //? configuración título evento
+  // Configuración del título
   const title = document.createElement("h2");
-  title.textContent = event.title; // Asignamos el título proporcionado por el objeto `event`.
+  title.textContent = event.title;
   title.className = "event-card-title";
 
-  //?configuración de la ubicacion del evento
+  // Configuración de la ubicación
   const location = document.createElement("p");
-  location.innerHTML = `<strong>Ubicación:</strong> ${event.location}`; // Formateamos la ubicación con un título en negrita.
+  location.innerHTML = `<strong>Ubicación:</strong> ${event.location}`;
   location.className = "event-card-location";
 
-  //? configuración de la fecha del evento
+  // Configuración de la fecha
   const date = document.createElement("p");
-  date.innerHTML = `<strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}`; // Convertimos la fecha del evento a un formato legible.
+  date.innerHTML = `<strong>Fecha:</strong> ${new Date(event.date).toLocaleString()}`;
   date.className = "event-card-date";
 
-
-  // Si se proporciona una función `onClick`, la asignamos al evento `click` de la tarjeta.
+  // Añade funcionalidad de click si se proporciona
   if (onClick) {
-    card.addEventListener("click", onClick);// Agregamos un manejador de eventos. Al hacer click, hace una función que le digamos.
-    card.classList.add("clickable"); // Añadimos una clase CSS para indicar que la tarjeta es interactiva.
+    card.addEventListener("click", onClick);
+    card.classList.add("clickable");
   }
 
-  card.append(img, title, location, date ); // Añadimos todos los elementos al contenedor principal de la tarjeta.
-
-  return card;  // Devolvemos la tarjeta completa para ser usada en otro lugar.
+  card.append(img, title, location, date);
+  return card;
 };

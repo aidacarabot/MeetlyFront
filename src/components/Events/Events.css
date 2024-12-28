@@ -13,15 +13,6 @@
   border-radius: 40px;
 }
 
-/* Estilos específicos para las cartas */
-.event-card {
-  flex: 1 1 calc(25% - 20px); /* 4 columnas con espacio (ajusta según tamaño) */
-  max-width: calc(25% - 20px); /* 4 columnas con espacio */
-  box-sizing: border-box; /* Incluye padding y borde en el ancho total */
-  display: flex;
-  flex-direction: column; /* Para organizar contenido dentro de la carta */
-  align-items: center;
-}
 
 /* Estilos del Carrusel */
 .slider {
@@ -53,21 +44,5 @@
   }
   100% {
     transform: translateX(calc(-300px * 7));
-  }
-}
-
-@media screen and (max-width: 768px) {
-  /* Ajuste para pantallas más pequeñas: 2 columnas */
-  .event-card {
-    flex: 1 1 calc(50% - 20px);
-    max-width: calc(50% - 20px);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  /* Ajuste para pantallas aún más pequeñas: 1 columna */
-  .event-card {
-    flex: 1 1 100%;
-    max-width: 100%;
   }
 }
