@@ -2,7 +2,9 @@ import { createPage } from "../../utils/functions/createPage";
 import { fetchData } from "../../utils/api/fetchData";
 import { Button } from "../../components/Button/Button";
 import { showSuccessMessage, showErrorMessage } from "../../utils/functions/messages";
+import { formatDate } from "../../utils/functions/formatDate";
 import "./EventPage.css";
+
 
 //! Función para normalizar títulos (remover caracteres especiales y convertir en slugs legibles)
 const normalizeTitle = (title) => {
@@ -65,13 +67,20 @@ export const EventPage = () => {
 
       //! Renderizamos los detalles del evento
       eventDetailsDiv.innerHTML = `
-        <h2>${selectedEvent.title}</h2>
-        <img src="${selectedEvent.img}" alt="${selectedEvent.title}" />
-        <p><strong>Descripción:</strong> ${selectedEvent.description}</p>
-        <p><strong>Ubicación:</strong> ${selectedEvent.location}</p>
-        <p class="attendees-count"><strong>${selectedEvent.attendeesCount}</strong> asistentes</p>
-        <p><strong>Organizado por:</strong> ${selectedEvent.organizer}</p>
-      `;
+      <div class="allDetails-eventPg">
+      <div class="mainDetails-eventPg">
+        <h2 class="eventPg-title">${selectedEvent.title}</h2>
+        <p class="eventPg-organizer"><strong>Organizado por:</strong> ${selectedEvent.organizer}</p>
+        <img class="eventPg-img" src="${selectedEvent.img}" alt="${selectedEvent.title}" />
+        <p class="eventPg-description"><strong>Descripción:</strong> ${selectedEvent.description}</p>
+      </div>
+      <div class="secondDetails-eventPg">
+        <p class="eventPg-date"><strong>Fecha:</strong> ${formatDate(selectedEvent.date)}</p>
+        <p class="eventPg-location"><strong>Ubicación:</strong> ${selectedEvent.location}</p>
+      </div>
+      </div>
+      <p class="attendees-count"><strong>${selectedEvent.attendeesCount} Asistentes</strong></p>
+    `;
 
       //! Obtenemos la información del usuario autenticado desde `localStorage`
       const user = JSON.parse(localStorage.getItem("user"));

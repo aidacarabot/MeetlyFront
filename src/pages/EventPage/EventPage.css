@@ -1,46 +1,106 @@
 .event-details {
-  text-align: center;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 80vh;
   padding: 20px;
-  max-width: 600px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
 }
 
-.event-details img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 15px;
+.allDetails-eventPg {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
 }
 
-.event-details h2 {
-  font-size: 24px;
+.mainDetails-eventPg {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid black;
+  box-shadow: 4px 4px black;
+  border-radius: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #e8e8e8e6;
+}
+
+.eventPg-organizer {
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.eventPg-title {
+  font-size: 25px;
   margin-bottom: 10px;
 }
 
-.event-details p {
-  margin: 8px 0;
+.eventPg-img {
+  width: 60%;
+  border-radius: 20px;
+  border: 3px solid black;
 }
 
+.eventPg-description {
+  width: 60%;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+.secondDetails-eventPg{
+  background-color: #e8e8e8e6;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  border: 3px solid black;
+  box-shadow: 4px 4px black;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.eventPg-date {
+  font-size: 15px;
+}
+
+.eventPg-location {
+  font-size: 15px;
+}
+
+.attendees-count {
+  font-size: 20px;
+}
+
+
+
+
 .btn-subscribe {
-  background-color: #28a745; /* Verde */
+  background-color: #4feb74; /* Verde */
   color: white;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
+  border: 3px solid black;
+  box-shadow: 4px 4px black;
   cursor: pointer;
 }
 
 .btn-unsubscribe {
-  background-color: #dc3545; /* Rojo */
+  background-color: #f65c6b; /* Rojo */
   color: white;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
   border: none;
-  border-radius: 4px;
+  border: 3px solid black;
+  box-shadow: 4px 4px black;
+  border-radius: 10px;
   cursor: pointer;
 }
 
