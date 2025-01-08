@@ -19,7 +19,7 @@ export const Home = () => {
   homeDiv.appendChild(createEventButton); // Añade el botón a la página
 
   //! Renderizar eventos con buscador habilitado
-  Events(homeDiv, { title: "Eventos disponibles:", showSearchBox: true, context: "home" }, false);
+  Events(homeDiv, { title: "Eventos disponibles:", showSearchBox: true, context: "home",  afterElementSelector: ".uiverse-create-event-button"  }, false);
 
   return homeDiv; // Retorna el contenedor principal
 };
