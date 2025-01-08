@@ -42,25 +42,21 @@ export const Events = async (parentDiv, options = {}, isCarousel = false) => {
   if (showSearchBox) {
     // Si se especifica un selector, ubicamos el SearchBar después de ese elemento.
     const afterElement = afterElementSelector ? parentDiv.querySelector(afterElementSelector) : null;
-    if (afterElement) {
-      searchBox = EventsSearchBar(parentDiv, (filterTerm) => {
-        renderFilteredEvents(eventsDiv, allEvents, filterTerm, {
-          context,
-          isCarousel,
-          errorDiv,
-          normalizeText,
-        });
+
+    const onInputCallback = (filterTerm) => {
+      renderFilteredEvents(eventsDiv, allEvents, filterTerm, {
+        context,
+        isCarousel,
+        errorDiv,
+        normalizeText,
       });
+    };
+
+    if (afterElement) {
+      searchBox = EventsSearchBar(afterElement.parentElement, onInputCallback);
       afterElement.insertAdjacentElement("afterend", searchBox); // Insertamos el SearchBar después del botón "Crear Evento".
     } else {
-      searchBox = EventsSearchBar(parentDiv, (filterTerm) => {
-        renderFilteredEvents(eventsDiv, allEvents, filterTerm, {
-          context,
-          isCarousel,
-          errorDiv,
-          normalizeText,
-        });
-      });
+      searchBox = EventsSearchBar(parentDiv, onInputCallback);
       parentDiv.appendChild(searchBox); // En caso de que no haya selector, lo añadimos al final.
     }
   }
