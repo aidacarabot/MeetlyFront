@@ -12,45 +12,66 @@ export const Profile = () => {
   const buttonContainer = document.createElement("div");
   buttonContainer.className = "button-container"; // Clase CSS para estilizar los botones
 
-  // **2. Botón para "Eventos a los que Asistiré":**
+  // **2. Función para manejar el estado activo de los botones:**
+  const setActiveButton = (activeButton) => {
+    // Quita la clase activa de todos los botones
+    document.querySelectorAll(".uiverse-assist-button, .uiverse-created-button").forEach((button) => {
+      button.classList.remove("active");
+    });
+    // Agrega la clase activa al botón seleccionado
+    activeButton.classList.add("active");
+  };
+
+  // **3. Botón para "Eventos a los que Asistiré":**
   const assistButton = Button(
     "Eventos a los que Asistiré", // Texto del botón
-    "btn-assist", // Clase personalizada para el botón
-    () => renderSection("assist") // Callback para renderizar la sección de eventos asistidos
+    "uiverse-assist-button", // Clase personalizada para el botón
+    () => {
+      setActiveButton(assistButton); // Marcar este botón como activo
+      renderSection("assist"); // Callback para renderizar la sección de eventos asistidos
+    },
+    "", // Sin ID específico
+    true, // Usa un <span>
+    "uiverse-button-top-assist" // Clase CSS específica para el span del botón
   );
 
-  // **3. Botón para "Eventos Creados":**
+  // **4. Botón para "Eventos Creados":**
   const createdButton = Button(
     "Eventos Creados", // Texto del botón
-    "btn-created", // Clase personalizada para el botón
-    () => renderSection("created") // Callback para renderizar la sección de eventos creados
+    "uiverse-created-button", // Clase personalizada para el botón
+    () => {
+      setActiveButton(createdButton); // Marcar este botón como activo
+      renderSection("created"); // Callback para renderizar la sección de eventos creados
+    },
+    "", // Sin ID específico
+    true, // Usa un <span>
+    "uiverse-button-top-created" // Clase CSS específica para el span del botón
   );
 
   // Añadir los botones al contenedor
   buttonContainer.append(assistButton, createdButton);
 
-  // **4. Contenedor para mostrar el contenido dinámico (eventos):**
+  // **5. Contenedor para mostrar el contenido dinámico (eventos):**
   const contentContainer = document.createElement("div");
   contentContainer.className = "content-container"; // Clase CSS para estilizar el contenedor
 
-  // **5. Función para renderizar las secciones según el botón seleccionado:**
+  // **6. Función para renderizar las secciones según el botón seleccionado:**
   const renderSection = (section) => {
     contentContainer.innerHTML = ""; // Limpia el contenido previo
 
     if (section === "assist") {
-      // Renderizar los eventos a los que el usuario asistirá
-      EventsAssist(contentContainer);
+      EventsAssist(contentContainer); // Renderizar los eventos a los que el usuario asistirá
     } else if (section === "created") {
-      // Renderizar los eventos creados por el usuario
-      EventsCreated(contentContainer); // Asegúrate de que este componente usa la ruta `/api/v1/events/created`
+      EventsCreated(contentContainer); // Renderizar los eventos creados por el usuario
     }
   };
 
+  // **7. Renderizar automáticamente una sección al cargar la página:**
+  setActiveButton(assistButton); // Por defecto, activa el botón de "Eventos a los que Asistiré"
+  renderSection("assist");
+
   // Añadir el contenedor de botones y el contenedor de contenido al div principal
   profileDiv.append(buttonContainer, contentContainer);
-
-  // **6. Renderizar automáticamente una sección al cargar la página:**
-  renderSection("assist"); // Por defecto, muestra los eventos asistidos al entrar en el perfil
 
   return profileDiv; // Retorna el contenedor principal
 };

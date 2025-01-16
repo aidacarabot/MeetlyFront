@@ -25,7 +25,7 @@ export const EventsCreated = async (parentDiv) => {
 
      //! Creamos un contenedor para organizar y mostrar las tarjetas de eventos.
     const eventsContainer = document.createElement("div");
-    eventsContainer.className = "events-container";
+    eventsContainer.className = "events-container-profile";
 
     // Iteramos sobre la lista de eventos creados que obtuvimos del backend.
     createdEvents.forEach((event) => {
