@@ -97,3 +97,16 @@
   pointer-events: none;
   z-index: 1;
 }
+
+/* Loader de Uiverse dentro de events-container */
+.dot-spinner {
+  --uib-size: 3rem;
+  --uib-speed: 0.9s;
+  --uib-color: #183153;
+  display: flex; /* Mostramos el loader como flex para centrarlo */
+  justify-content: center;
+  align-items: center;
+  margin: auto; /* Aseguramos que esté centrado */
+  height: var(--uib-size);
+  width: var(--uib-size);
+}

@@ -1,10 +1,13 @@
-import { fetchData } from "../../utils/api/fetchData"; // Importamos la función reutilizable para realizar peticiones al backend.
-import { showSuccessMessage, showErrorMessage } from "../../utils/functions/messages"; // Importamos las funciones para mostrar mensajes.
-import "./RegisterForm.css";
+import { fetchData } from '../../utils/api/fetchData' // Importamos la función reutilizable para realizar peticiones al backend.
+import {
+  showSuccessMessage,
+  showErrorMessage
+} from '../../components/Messages/Messages' // Importamos las funciones para mostrar mensajes.
+import './RegisterForm.css'
 
 export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
-  const form = document.createElement("form"); // Creamos el formulario principal.
-  form.className = "uiverse-register-form uiverse-card"; // Clases consistentes con el diseño de LoginForm.
+  const form = document.createElement('form') // Creamos el formulario principal.
+  form.className = 'uiverse-register-form uiverse-card' // Clases consistentes con el diseño de LoginForm.
 
   // Estructura del formulario
   form.innerHTML = `
@@ -78,50 +81,55 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
     </p>
 
     <div id="message" class="message"></div> <!-- Contenedor para mensajes -->
-  `;
+  `
 
   // Seleccionamos elementos necesarios
-  const messageElement = form.querySelector("#message");
-  const goToLoginElement = form.querySelector("#go-to-login");
+  const messageElement = form.querySelector('#message')
+  const goToLoginElement = form.querySelector('#go-to-login')
 
   //! Redirigir al formulario de inicio de sesión
-  goToLoginElement.addEventListener("click", () => goToLogin());
+  goToLoginElement.addEventListener('click', () => goToLogin())
 
   //! Manejo del envío del formulario
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Evita la recarga de la página.
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault() // Evita la recarga de la página.
 
-    const formData = new FormData(form); // Recoge los datos del formulario.
-    const userData = Object.fromEntries(formData.entries()); // Convierte los datos a un objeto estándar.
-    const errors = []; // Array para almacenar errores de validación local.
+    const formData = new FormData(form) // Recoge los datos del formulario.
+    const userData = Object.fromEntries(formData.entries()) // Convierte los datos a un objeto estándar.
+    const errors = [] // Array para almacenar errores de validación local.
 
     //! Validación de contraseñas
     if (userData.password !== userData.confirmPassword) {
-      errors.push("Las contraseñas no coinciden.");
+      errors.push('Las contraseñas no coinciden.')
     }
 
     if (errors.length > 0) {
-      showErrorMessage(messageElement, errors.join(" "));
-      return;
+      showErrorMessage(messageElement, errors.join(' '))
+      return
     }
 
     //! Intento de registro en el backend
     try {
-      const response = await fetchData("/api/v1/users/register", "POST", userData);
+      const response = await fetchData(
+        '/api/v1/users/register',
+        'POST',
+        userData
+      )
 
       if (response.user) {
         showSuccessMessage(
           messageElement,
-          "Registro exitoso. Redirigiendo al inicio de sesión..."
-        );
-        setTimeout(() => onSuccessfulRegister(), 2000);
+          'Registro exitoso. Redirigiendo al inicio de sesión...'
+        )
+        setTimeout(() => onSuccessfulRegister(), 2000)
       }
     } catch (error) {
       const errorMessage =
-        error?.response?.error || "El usuario o correo ya están en uso. Intenta con otros.";
-      showErrorMessage(messageElement, errorMessage);
+        error?.response?.error ||
+        'El usuario o correo ya están en uso. Intenta con otros.'
+      showErrorMessage(messageElement, errorMessage)
     }
-  });
+  })
 
-  return form; // Devolvemos el formulario.
-};
+  return form // Devolvemos el formulario.
+}

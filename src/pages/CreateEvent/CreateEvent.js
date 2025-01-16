@@ -1,13 +1,16 @@
-import { createPage } from "../../utils/functions/createPage";
-import { fetchData } from "../../utils/api/fetchData";
-import { showSuccessMessage, showErrorMessage } from "../../utils/functions/messages";
-import "./CreateEvent.css";
+import { createPage } from '../../utils/functions/createPage'
+import { fetchData } from '../../utils/api/fetchData'
+import {
+  showSuccessMessage,
+  showErrorMessage
+} from '../../components/Messages/Messages'
+import './CreateEvent.css'
 
 export const CreateEvent = () => {
-  const page = createPage("create-event");
+  const page = createPage('create-event')
 
-  const modal = document.createElement("div");
-  modal.className = "merenge-modal";
+  const modal = document.createElement('div')
+  modal.className = 'merenge-modal'
 
   modal.innerHTML = `
     <div class="merenge-modal__header">
@@ -46,35 +49,35 @@ export const CreateEvent = () => {
     </form>
 
     <div id="merenge-messages" class="merenge-messages"></div>
-  `;
+  `
 
-  const form = modal.querySelector(".merenge-create-event-form");
-  const messagesDiv = modal.querySelector("#merenge-messages");
+  const form = modal.querySelector('.merenge-create-event-form')
+  const messagesDiv = modal.querySelector('#merenge-messages')
 
   // Manejador de envío del formulario
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    messagesDiv.innerHTML = "";
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    messagesDiv.innerHTML = ''
 
-    const formData = new FormData(form);
+    const formData = new FormData(form)
 
     try {
-      const response = await fetchData("/api/v1/events", "POST", formData, {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      });
+      const response = await fetchData('/api/v1/events', 'POST', formData, {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      })
 
-      showSuccessMessage(messagesDiv, "Evento creado exitosamente.");
-      form.reset();
-      setTimeout(() => window.navigateTo("/inicio"), 2000);
+      showSuccessMessage(messagesDiv, 'Evento creado exitosamente.')
+      form.reset()
+      setTimeout(() => window.navigateTo('/inicio'), 2000)
     } catch (error) {
-      console.error("Error al crear el evento:", error);
+      console.error('Error al crear el evento:', error)
       showErrorMessage(
         messagesDiv,
-        error.message || "Hubo un problema al crear el evento."
-      );
+        error.message || 'Hubo un problema al crear el evento.'
+      )
     }
-  });
+  })
 
-  page.appendChild(modal);
-  return page;
-};
+  page.appendChild(modal)
+  return page
+}

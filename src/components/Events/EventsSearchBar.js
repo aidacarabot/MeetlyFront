@@ -26,10 +26,21 @@ export const EventsSearchBar = (parentDiv, onInput) => {
   input.type = "search";
   input.placeholder = "Buscar eventos...";
 
+  //! Agregar funcionalidad para retrasar la búsqueda
+  let typingTimer; // Temporizador para el retraso
+  const typingDelay = 1000; // 3 segundos de retraso
+
   //! Añadir evento para manejar cambios en el input
   input.addEventListener("input", (e) => {
     const query = e.target.value.trim(); // Obtener el valor del input.
-    onInput(query); // Llamar a la función de búsqueda proporcionada.
+
+    // Reiniciar el temporizador en cada entrada
+    clearTimeout(typingTimer);
+
+    // Configurar un nuevo temporizador
+    typingTimer = setTimeout(() => {
+      onInput(query); // Ejecutar la función de búsqueda después del retraso
+    }, typingDelay);
   });
 
   //! Añadir el icono y el input al contenedor
