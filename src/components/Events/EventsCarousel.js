@@ -1,3 +1,5 @@
+import { EventCard } from "../EventCard/EventCard";
+
 //! Renderiza un carrusel de eventos.
 export const EventsCarousel = (parentDiv, events) => {
   const slideTrack = document.createElement("div");

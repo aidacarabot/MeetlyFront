@@ -1,6 +1,8 @@
 import { EventCard } from "../../components/EventCard/EventCard";
 import { EventsCarousel } from "../../components/Events/EventsCarousel";
 import { clearMessage, showErrorMessage } from "../../utils/functions/messages";
+import { navigateEventPage } from "../../utils/functions/NavigateEventPage"
+
 
 //! Función que renderiza eventos filtrados según el término de búsqueda.
 // Adapta el modo de renderizado según si es un carrusel o una lista normal.
