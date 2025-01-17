@@ -42,6 +42,27 @@ export const showSuccessMessage = (container, message) => {
   renderMessage(container, message, "success-message");
 };
 
+//! Muestra un mensaje sin loader con redirección
+export const showTemporarySuccessMessage = (
+  container,
+  message,
+  duration = 2000,
+  redirectUrl = "/perfil"
+) => {
+  if (!container) {
+    console.error("El contenedor para mostrar el mensaje no existe.");
+    return;
+  }
+
+  container.innerHTML = `<p>${message}</p>`;
+  container.className = "message success-no-loader-message"; // Clase sin loader
+  container.style.display = "block"; // Mostrar el mensaje
+
+  setTimeout(() => {
+    window.navigateTo(redirectUrl); // Redirigir a la URL especificada
+  }, duration);
+};
+
 //! Muestra un mensaje de información
 export const showInfoMessage = (container, message) => {
   renderMessage(container, message, "info-message");

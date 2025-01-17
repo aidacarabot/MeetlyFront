@@ -1,70 +1,63 @@
-import { createPage } from '../../utils/functions/createPage'
-import { fetchData } from '../../utils/api/fetchData'
-import { Button } from '../../components/Button/Button'
+import { createPage } from '../../utils/functions/createPage';
+import { fetchData } from '../../utils/api/fetchData';
+import { Button } from '../../components/Button/Button';
 import {
   showSuccessMessage,
-  showErrorMessage
-} from '../../components/Messages/Messages'
-import { formatDate } from '../../utils/functions/formatDate'
-import './EventPage.css'
+  showErrorMessage,
+  showTemporarySuccessMessage
+} from '../../components/Messages/Messages';
+import { formatDate } from '../../utils/functions/formatDate';
+import './EventPage.css';
 
 //! Función para normalizar títulos (remover caracteres especiales y convertir en slugs legibles)
 const normalizeTitle = (title) => {
   return title
-    .toLowerCase() // Convertimos a minúsculas
-    .normalize('NFD') // Descompone caracteres con tildes o diacríticos
-    .replace(/[\u0300-\u036f]/g, '') // Elimina los diacríticos (tildes y acentos)
-    .replace(/[^a-z0-9\s-]/g, '') // Elimina caracteres no alfanuméricos excepto guiones y espacios
-    .replace(/\s+/g, '-') // Reemplaza espacios por guiones
-    .trim() // Elimina espacios en blanco al inicio y al final
-}
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .trim();
+};
 
 export const EventPage = () => {
   //! Creamos un contenedor para la página
-  const page = createPage('event-page')
+  const page = createPage('event-page');
 
   //! Obtenemos el nombre del evento desde la URL y lo normalizamos
   const eventName = normalizeTitle(
-    decodeURIComponent(window.location.pathname.split('/').pop()) // Decodifica caracteres especiales de la URL
-  )
+    decodeURIComponent(window.location.pathname.split('/').pop())
+  );
 
-  //! Creamos un div donde se mostrarán los detalles del evento (título, imagen, etc.)
-  const eventDetailsDiv = document.createElement('div')
-  eventDetailsDiv.className = 'event-details'
+  //! Creamos un div donde se mostrarán los detalles del evento
+  const eventDetailsDiv = document.createElement('div');
+  eventDetailsDiv.className = 'event-details';
 
   //! Creamos un contenedor donde se mostrarán mensajes generales (éxito o error)
-  const messageDiv = document.createElement('div')
-  messageDiv.className = 'message-container'
-  page.appendChild(messageDiv) // Añadimos el contenedor de mensajes al contenedor principal de la página
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'message-container';
+  page.appendChild(messageDiv);
 
   //! Función para cargar y mostrar los detalles del evento seleccionado
   const loadEventDetails = async () => {
     try {
       // Hacemos una solicitud al backend para obtener todos los eventos disponibles
-      const events = await fetchData('/api/v1/events')
+      const events = await fetchData('/api/v1/events');
 
-      //! Normalizamos los títulos de los eventos para comparar con el título desde la URL
+      //! Normalizamos los títulos de los eventos
       const normalizedEvents = events.map((e) => ({
         ...e,
-        normalizedTitle: normalizeTitle(e.title) // Añadimos una propiedad para el título normalizado
-      }))
+        normalizedTitle: normalizeTitle(e.title),
+      }));
 
-      // Log para depuración (verificación de títulos)
-      console.log('Título desde la URL (normalizado):', eventName)
-      console.log(
-        'Títulos de eventos cargados:',
-        normalizedEvents.map((e) => e.normalizedTitle)
-      )
-
-      //! Buscamos el evento específico cuyo título coincida con el nombre en la URL
+      //! Buscamos el evento específico
       const selectedEvent = normalizedEvents.find(
-        (e) => e.normalizedTitle === eventName // Comparación usando el título normalizado
-      )
+        (e) => e.normalizedTitle === eventName
+      );
 
-      //! Si no encontramos el evento, mostramos un mensaje de error
       if (!selectedEvent) {
-        showErrorMessage(messageDiv, 'Evento no encontrado.')
-        return
+        showErrorMessage(messageDiv, 'Evento no encontrado.');
+        return;
       }
 
       //! Renderizamos los detalles del evento
@@ -94,117 +87,112 @@ export const EventPage = () => {
       <p class="attendees-count"><strong>${
         selectedEvent.attendeesCount
       } Asistentes</strong></p>
-    `
+    `;
 
       //! Obtenemos la información del usuario autenticado desde `localStorage`
-      const user = JSON.parse(localStorage.getItem('user'))
+      const user = JSON.parse(localStorage.getItem('user'));
 
-      //! Verificamos si el usuario está autenticado
       if (!user || !user._id) {
-        showErrorMessage(messageDiv, 'Usuario no autenticado.')
-        return
+        showErrorMessage(messageDiv, 'Usuario no autenticado.');
+        return;
       }
 
-      //! Verificamos si el usuario es el organizador del evento
-      const isOrganizer = selectedEvent.organizer === user.username
+      //! Verificamos si el usuario es el organizador
+      const isOrganizer = selectedEvent.organizer === user.username;
 
-      //! Verificamos si el usuario está actualmente inscrito en el evento
+      //! Verificamos si el usuario está inscrito
       let isAttending = selectedEvent.attendees.some(
         (attendee) => attendee === user._id
-      )
+      );
 
-      //! Función para actualizar dinámicamente el contador de asistentes del evento
+      //! Función para actualizar el contador de asistentes
       const updateAttendeesCount = (change) => {
         const attendeesCountEl = eventDetailsDiv.querySelector(
           '.attendees-count strong'
-        )
+        );
         if (attendeesCountEl) {
-          const currentCount = parseInt(attendeesCountEl.textContent, 10) // Obtenemos el número actual
-          attendeesCountEl.textContent = currentCount + change // Actualizamos el número de asistentes
+          const currentCount = parseInt(attendeesCountEl.textContent, 10);
+          attendeesCountEl.textContent = currentCount + change;
         }
-      }
+      };
 
-      //! Si el usuario es el organizador, mostramos un botón para eliminar el evento
       if (isOrganizer) {
+        //! Botón para eliminar evento
         const deleteButton = Button(
           'Eliminar Evento',
           'btn-delete-event',
           async () => {
             try {
-              //! Hacemos una solicitud al backend para eliminar el evento
               await fetchData(
                 `/api/v1/events/${selectedEvent.id}`,
                 'DELETE',
                 null,
                 {
-                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                  Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
-              )
+              );
 
-              //! Mostramos un mensaje de éxito al eliminar el evento
-              showSuccessMessage(messageDiv, 'Evento eliminado exitosamente.')
-              setTimeout(() => window.navigateTo('/inicio'), 2000) // Redirigimos al usuario a la página de inicio
+              //! Mostramos mensaje de éxito y redirigimos tras 2 segundos
+              showSuccessMessage(messageDiv, 'Evento eliminado exitosamente.');
+              setTimeout(() => window.navigateTo('/inicio'), 2000);
             } catch (error) {
-              console.error('Error al eliminar el evento:', error)
-              showErrorMessage(messageDiv, 'Error al eliminar el evento.')
+              console.error('Error al eliminar el evento:', error);
+              showErrorMessage(messageDiv, 'Error al eliminar el evento.');
             }
           }
-        )
-        eventDetailsDiv.appendChild(deleteButton) // Añadimos el botón al contenedor de detalles del evento
+        );
+        eventDetailsDiv.appendChild(deleteButton);
       } else {
-        //! Si no es el organizador, mostramos un botón para inscribirse o desinscribirse del evento
+        //! Botón para inscribirse/desinscribirse
         const attendButton = Button(
-          isAttending ? 'Desinscribirse' : 'Inscribirse', // Cambiamos el texto según el estado
-          isAttending ? 'btn-unsubscribe' : 'btn-subscribe', // Cambiamos la clase CSS según el estado
+          isAttending ? 'Desinscribirse' : 'Inscribirse',
+          isAttending ? 'btn-unsubscribe' : 'btn-subscribe',
           async () => {
             try {
-              //! Definimos la URL y el método según la acción (inscribirse o desinscribirse)
-              const endpoint = `/api/v1/events/attend/${selectedEvent.id}`
-              const method = isAttending ? 'DELETE' : 'POST'
-
-              //! Hacemos la solicitud al backend
+              const endpoint = `/api/v1/events/attend/${selectedEvent.id}`;
+              const method = isAttending ? 'DELETE' : 'POST';
+        
               await fetchData(endpoint, method, null, {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-              })
-
-              //! Mostramos un mensaje dinámico según la acción realizada
-              showSuccessMessage(
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              });
+        
+              //! Mostrar mensaje de éxito sin loader y redirigir tras 3 segundos
+              showTemporarySuccessMessage(
                 messageDiv,
                 isAttending
                   ? 'Te has desinscrito del evento.'
-                  : 'Te has inscrito al evento.'
-              )
-
-              //! Actualizamos el estado de asistencia
-              isAttending = !isAttending
+                  : 'Te has inscrito al evento.',
+                3000 // Duración del mensaje en milisegundos
+              );
+        
+              //! Actualizar el contador de asistentes
+              updateAttendeesCount(isAttending ? -1 : 1);
+              isAttending = !isAttending; // Cambiar estado de asistencia
               attendButton.textContent = isAttending
                 ? 'Desinscribirse'
-                : 'Inscribirse'
+                : 'Inscribirse'; // Actualizar texto del botón
               attendButton.className = isAttending
                 ? 'btn-unsubscribe'
-                : 'btn-subscribe'
-
-              //! Actualizamos el contador de asistentes
-              updateAttendeesCount(isAttending ? 1 : -1)
+                : 'btn-subscribe'; // Actualizar clase del botón
             } catch (error) {
-              console.error('Error al inscribirse/desinscribirse:', error)
+              console.error('Error al inscribirse/desinscribirse:', error);
               showErrorMessage(
                 messageDiv,
                 'Hubo un problema al procesar la solicitud.'
-              )
+              );
             }
           }
-        )
+        );
 
-        eventDetailsDiv.appendChild(attendButton) // Añadimos el botón al contenedor de detalles
+        eventDetailsDiv.appendChild(attendButton);
       }
     } catch (error) {
-      console.error('Error al cargar evento:', error) // Log para depuración
-      showErrorMessage(messageDiv, 'Error al cargar el evento.') // Mensaje de error general
+      console.error('Error al cargar evento:', error);
+      showErrorMessage(messageDiv, 'Error al cargar el evento.');
     }
-  }
+  };
 
-  loadEventDetails() // Llamamos a la función para cargar los detalles del evento al inicializar la página
-  page.appendChild(eventDetailsDiv) // Añadimos el contenedor de detalles al contenedor principal
-  return page // Devolvemos la página para que sea renderizada
-}
+  loadEventDetails();
+  page.appendChild(eventDetailsDiv);
+  return page;
+};
