@@ -1,45 +1,56 @@
-import { fetchData } from '../../utils/api/fetchData' // Importamos la función para realizar solicitudes al backend.
+import { fetchData } from '../../utils/api/fetchData';
 import {
   showErrorMessage,
-  showInfoMessage
-} from '../../components/Messages/Messages'
-import { navigateEventPage } from '../../utils/functions/NavigateEventPage'
-import { EventCard } from '../EventCard/EventCard' // Importamos el componente reutilizable para crear tarjetas de eventos.
+  showInfoMessage,
+  clearMessage,
+} from '../../components/Messages/Messages';
+import { navigateEventPage } from '../../utils/functions/NavigateEventPage';
+import { EventCard } from '../EventCard/EventCard';
 
 //! Esta función renderiza los eventos a los que el usuario está inscrito.
 export const EventsAssist = async (parentDiv) => {
-  // Mostramos un mensaje de carga inicial usando `showInfoMessage`.
-  showInfoMessage(parentDiv, 'Cargando los eventos a los que estás inscrito...')
+  //! Crear un contenedor para mensajes (independiente del contenedor de eventos).
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'message-container';
+  parentDiv.appendChild(messageDiv);
+
+  //! Crear un contenedor para los eventos.
+  const eventsContainer = document.createElement('div');
+  eventsContainer.className = 'events-container-profile';
+  parentDiv.appendChild(eventsContainer);
+
+  // Mostrar mensaje de carga inicial.
+  showInfoMessage(messageDiv, 'Cargando los eventos a los que estás inscrito...');
 
   try {
-    //! Realizamos una solicitud al backend para obtener la lista de eventos a los que el usuario está inscrito.
+    //! Realizar la solicitud al backend.
     const events = await fetchData('/api/v1/events/attend', 'GET', null, {
-      Authorization: `Bearer ${localStorage.getItem('token')}` // Enviamos el token de autenticación almacenado en localStorage.
-    })
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
 
-    //! Verificamos si no hay eventos a los que el usuario esté inscrito.
+    //! Si no hay eventos, mostrar mensaje y limpiar el contenedor de eventos.
     if (!events || events.length === 0) {
-      showInfoMessage(parentDiv, 'No estás inscrito en ningún evento.') // Mostramos un mensaje al usuario.
-      return // Finalizamos la función si no hay eventos.
+      eventsContainer.innerHTML = ''; // Asegurarse de que el contenedor esté vacío.
+      clearMessage(messageDiv); // Ocultar el mensaje de carga inicial.
+      showInfoMessage(messageDiv, 'No estás inscrito en ningún evento.');
+      return;
     }
 
-    //! Creamos un contenedor para organizar y mostrar las tarjetas de eventos.
-    const eventsContainer = document.createElement('div')
-    eventsContainer.className = 'events-container-profile'
-
-    // Iteramos sobre los eventos obtenidos para crear una tarjeta para cada uno.
+    //! Iterar sobre los eventos obtenidos y crear tarjetas para cada uno.
+    eventsContainer.innerHTML = ''; // Limpiar cualquier contenido previo en el contenedor.
     events.forEach((event) => {
-      const eventCard = EventCard(event, () => navigateEventPage(event)) // Usa la función de navegación para cada tarjeta.
-      eventsContainer.appendChild(eventCard) // Añadimos la tarjeta al contenedor.
-    })
+      const eventCard = EventCard(event, () => navigateEventPage(event));
+      eventsContainer.appendChild(eventCard);
+    });
 
-    parentDiv.innerHTML = '' // Limpiamos el contenido temporal de `parentDiv` (el mensaje de "Cargando...").
-    parentDiv.appendChild(eventsContainer) // Añadimos el contenedor con las tarjetas de eventos al `parentDiv`.
+    // Limpiar el mensaje de carga inicial.
+    clearMessage(messageDiv);
   } catch (error) {
-    console.error('Error al cargar eventos asistidos:', error) // Registramos el error para depuración.
+    console.error('Error al cargar eventos asistidos:', error);
+    clearMessage(messageDiv); // Limpiar cualquier mensaje previo
     showErrorMessage(
-      parentDiv,
+      messageDiv,
       'Error al cargar los eventos a los que estás inscrito. Intenta más tarde.'
-    ) // Mostramos un mensaje de error al usuario.
+    );
   }
-}
+};
