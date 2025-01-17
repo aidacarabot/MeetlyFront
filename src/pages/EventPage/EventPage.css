@@ -75,9 +75,6 @@
   font-size: 20px;
 }
 
-
-
-
 .btn-subscribe {
   background-color: #4feb74; /* Verde */
   color: white;
@@ -90,7 +87,7 @@
   cursor: pointer;
 }
 
-.btn-unsubscribe {
+.btn-unsubscribe, .btn-delete-event {
   background-color: #f65c6b; /* Rojo */
   color: white;
   padding: 10px 20px;
@@ -103,25 +100,7 @@
 }
 
 .btn-subscribe:hover,
-.btn-unsubscribe:hover {
+.btn-unsubscribe:hover,
+.btn-delete-event:hover {
   opacity: 0.9;
-}
-
-.message-container {
-  margin-top: 15px;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  text-align: center;
-  display: none; /* Oculto por defecto */
-}
-
-.success-message {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
 }
