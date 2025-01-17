@@ -2,7 +2,10 @@
 // Renderiza múltiples EventCard en diferentes formatos (normal o carrusel).
 
 import { fetchData } from '../../utils/api/fetchData'
-import { showErrorMessage } from '../../components/Messages/Messages'
+import {
+  showErrorMessage,
+  showNoEventsMessage,
+} from '../../components/Messages/Messages'
 import { normalizeText } from '../../utils/functions/normalizeText'
 import { renderFilteredEvents } from '../../utils/functions/renderFilteredEvents'
 import { EventsSearchBar } from './EventsSearchBar'
@@ -38,19 +41,14 @@ export const Events = async (parentDiv, options = {}, isCarousel = false) => {
   }
   eventsDiv.appendChild(loader) // Añadimos el loader al contenedor de eventos
 
-  //! Crear contenedor de mensajes de error
-  let errorDiv
-  if (showErrors) {
-    errorDiv = document.createElement('div')
-    errorDiv.className = 'error-message'
-    errorDiv.style.display = 'none'
-    parentDiv.appendChild(errorDiv)
-  }
+  //! Crear contenedor de mensajes
+  const messageDiv = document.createElement('div')
+  messageDiv.className = 'message-container'
+  parentDiv.appendChild(messageDiv)
 
   //! Crear barra de búsqueda (si está habilitada)
   let searchBox
   if (showSearchBox) {
-    // Si se especifica un selector, ubicamos el SearchBar después de ese elemento.
     const afterElement = afterElementSelector
       ? parentDiv.querySelector(afterElementSelector)
       : null
@@ -59,48 +57,48 @@ export const Events = async (parentDiv, options = {}, isCarousel = false) => {
       renderFilteredEvents(eventsDiv, allEvents, filterTerm, {
         context,
         isCarousel,
-        errorDiv,
-        normalizeText
+        errorDiv: messageDiv,
+        normalizeText,
       })
     }
 
     if (afterElement) {
       searchBox = EventsSearchBar(afterElement.parentElement, onInputCallback)
-      afterElement.insertAdjacentElement('afterend', searchBox) // Insertamos el SearchBar después del botón "Crear Evento".
+      afterElement.insertAdjacentElement('afterend', searchBox)
     } else {
       searchBox = EventsSearchBar(parentDiv, onInputCallback)
-      parentDiv.appendChild(searchBox) // En caso de que no haya selector, lo añadimos al final.
+      parentDiv.appendChild(searchBox)
     }
   }
 
   //! Cargar y renderizar eventos iniciales
   let allEvents = []
   try {
-    loader.style.display = 'flex' // Aseguramos que el loader sea visible al iniciar la carga
+    loader.style.display = 'flex' // Mostrar loader al iniciar la carga
 
     const events = await fetchData(endpoint)
+    loader.style.display = 'none' // Ocultar loader tras recibir respuesta
+
+    //! Si no hay eventos, mostrar mensaje "No hay eventos"
     if (!events || events.length === 0) {
-      if (errorDiv) showErrorMessage(errorDiv, 'No hay eventos disponibles.')
-      loader.style.display = 'none' // Ocultamos el loader en caso de error
+      showNoEventsMessage(messageDiv, 'No hay eventos. Agrega algunos.')
       return
     }
 
-    allEvents = events // Guardar todos los eventos cargados
+    allEvents = events
 
-    loader.style.display = 'none' // Ocultamos el loader una vez cargados los eventos
     renderFilteredEvents(eventsDiv, allEvents, '', {
       context,
       isCarousel,
-      errorDiv,
-      normalizeText
+      errorDiv: messageDiv,
+      normalizeText,
     })
   } catch (error) {
-    loader.style.display = 'none' // Ocultamos el loader en caso de error
+    loader.style.display = 'none' // Ocultar loader en caso de error
     console.error('Error al cargar los eventos:', error)
-    if (errorDiv)
-      showErrorMessage(
-        errorDiv,
-        'Hubo un error al cargar los eventos. Intenta más tarde.'
-      )
+    showErrorMessage(
+      messageDiv,
+      'Hubo un error al cargar los eventos. Intenta más tarde.'
+    )
   }
 }

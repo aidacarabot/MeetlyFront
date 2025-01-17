@@ -68,3 +68,11 @@
   background: rgb(73, 72, 72); /* Cambia el fondo a un tono más oscuro */
   color: #dcdcdc; /* Cambia el texto a negro */
 }
+
+.no-events-message {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+  margin-top: 20px;
+}

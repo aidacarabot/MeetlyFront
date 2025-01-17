@@ -1,9 +1,9 @@
 /* Estilos generales para los mensajes */
 .message {
   position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%; /* Centramos verticalmente */
+  left: 50%; /* Centramos horizontalmente */
+  transform: translate(-50%, -50%); /* Ajustamos el desplazamiento */
   z-index: 9999;
   width: 300px;
   max-width: 90%;
@@ -32,18 +32,9 @@
 
 /* Mensajes de información */
 .info-message {
-  display: none; /* Oculto por defecto */
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 8px;
   background-color: #d1ecf1;
   color: #0c5460;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  border: 1px solid #bee5eb;
 }
 
 /* Estilo del loader */

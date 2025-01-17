@@ -47,6 +47,18 @@ export const showInfoMessage = (container, message) => {
   renderMessage(container, message, "info-message");
 };
 
+//! Muestra un mensaje estático de "No hay eventos"
+export const showNoEventsMessage = (container, message) => {
+  if (!container) {
+    console.error("El contenedor para mostrar el mensaje no existe.");
+    return;
+  }
+
+  container.innerHTML = `<p>${message}</p>`;
+  container.className = "no-events-message"; // Clase específica para mensajes estáticos
+  container.style.display = "block"; // Aseguramos que sea visible
+};
+
 //! Limpia cualquier mensaje mostrado
 export const clearMessage = (container) => {
   if (!container) {
