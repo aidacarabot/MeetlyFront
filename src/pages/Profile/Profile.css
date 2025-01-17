@@ -6,9 +6,15 @@
   padding: 40px;
 }
 
+.content-container {
+  width: 100%;
+}
+
 .events-container-profile {
   display: flex;
-  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 
 .button-container {
