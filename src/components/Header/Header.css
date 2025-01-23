@@ -41,21 +41,13 @@ nav ul li a:hover {
   cursor: default;
 }
 
-/* Estilos para los íconos */
-.header-icon {
-  width: 24px; /* Tamaño de los íconos */
-  height: 24px;
-  margin-right: 10px;
-  display: none; /* Ocultos por defecto */
+.route-icon {
+  width: 20px; /* Tamaño del ícono */
+  height: 20px;
+  margin-right: 5px; /* Espacio entre el ícono y el texto */
+  vertical-align: middle; /* Alinear el ícono con el texto */
+  display: none; /* Oculta el ícono */
 }
-
-/* Estilo para el texto de los enlaces */
-.header-text {
-  display: inline-block; /* Visible por defecto */
-  font-size: 1rem;
-  font-weight: bold;
-}
-
 
 /* ! WEB RESPONSIVE */
 @media (width < 450px) {
@@ -66,13 +58,14 @@ nav ul li a:hover {
   header {
     width: 95%;
   }
-  .header-icon {
-    display: inline-block; /* Mostrar íconos */
+  nav ul li a span {
+    display: none; /* Oculta el texto */
   }
-  .header-text {
-    display: none; /* Ocultar texto */
+  .route-icon {
+    display: inline-block; /* Muestra el ícono */
   }
+
   nav ul {
-    gap: 20px; /* Reducir el espacio entre elementos */
+    gap: 20px;
   }
 }

@@ -35,6 +35,7 @@ export const Header = () => {
     selectedRoutes.push({
       path: "/", // Ruta a la página principal (Hero)
       text: "Cerrar Sesión", // Texto del enlace.
+      icon: "/assets/logout-logo.png", // Ícono específico
       action: () => {
         // Acción al hacer clic en "Cerrar Sesión".
         localStorage.removeItem("token"); // Eliminamos el token del localStorage.
@@ -51,8 +52,12 @@ export const Header = () => {
   selectedRoutes.forEach((route) => {
     const li = document.createElement("li"); // Creamos un elemento <li> para cada enlace.
     const a = document.createElement("a"); // Creamos un elemento <a> (enlace).
+    const span = document.createElement("span"); // Creamos un elemento <span> para el texto.
 
-    a.textContent = route.text; // Establecemos el texto del enlace.
+     // Configuración del texto dentro de un <span>
+    span.textContent = route.text; // Texto del enlace.
+    span.className = "route-text"; // Clase CSS específica para el texto.
+
     a.href = route.path; // Establecemos la ruta del enlace.
 
     if (route.action) {
@@ -65,7 +70,17 @@ export const Header = () => {
       //! 10. Si no hay una acción personalizada, usamos `reload` para manejar la navegación.
       a.addEventListener("click", (e) => reload(e, route)); // Redirigimos a la página asociada a la ruta sin recargar.
     }
+    
+    // Añadir el ícono si existe
+    if (route.icon) {
+      const img = document.createElement("img"); // Creamos el elemento <img>.
+      img.src = route.icon; // Usamos la propiedad `icon` de la ruta.
+      img.alt = `${route.text} Icon`; // Texto alternativo para accesibilidad.
+      img.className = "route-icon"; // Clase CSS específica para los íconos.
+      a.appendChild(img); // Insertamos el ícono antes del texto del enlace.
+    }
 
+    a.appendChild(span); // Insertamos el <span> con el texto dentro del enlace.
     li.appendChild(a); // Añadimos el enlace al elemento <li>.
     ul.appendChild(li); // Añadimos el <li> a la lista <ul>.
   });

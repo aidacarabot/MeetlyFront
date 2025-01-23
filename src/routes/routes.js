@@ -14,12 +14,14 @@ export const routes = [
   {
     path: "/inicio",
     text: "Inicio",
-    page: Home
+    page: Home,
+    icon: "/assets/home-logo.png"
   },
   {
     path: "/perfil",
     text: "Perfil",
-    page: Profile
+    page: Profile,
+    icon: "/assets/profile-logo.png"
   },
   {
     path: "/crear-evento",
