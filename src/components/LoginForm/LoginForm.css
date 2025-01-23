@@ -112,3 +112,13 @@
 .uiverse-signup .uiverse-link:hover {
   text-decoration: underline;
 }
+
+/*! WEB RESPONSIVE */
+@media (width < 430px) {
+ .uiverse-card {
+  width: 100%;
+ } 
+ .uiverse-login-title {
+  font-size: 1.5rem;
+ }
+}

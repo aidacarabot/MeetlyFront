@@ -15,6 +15,8 @@ header {
 nav ul {
   list-style: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 40px;
 }
 
@@ -37,4 +39,40 @@ nav ul li a:hover {
   margin-right: 20px;
   font-weight: bold;
   cursor: default;
+}
+
+/* Estilos para los íconos */
+.header-icon {
+  width: 24px; /* Tamaño de los íconos */
+  height: 24px;
+  margin-right: 10px;
+  display: none; /* Ocultos por defecto */
+}
+
+/* Estilo para el texto de los enlaces */
+.header-text {
+  display: inline-block; /* Visible por defecto */
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+
+/* ! WEB RESPONSIVE */
+@media (width < 450px) {
+  .welcome-text {
+    text-align: center;
+    font-size: 1rem;
+  }
+  header {
+    width: 95%;
+  }
+  .header-icon {
+    display: inline-block; /* Mostrar íconos */
+  }
+  .header-text {
+    display: none; /* Ocultar texto */
+  }
+  nav ul {
+    gap: 20px; /* Reducir el espacio entre elementos */
+  }
 }

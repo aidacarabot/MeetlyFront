@@ -16,9 +16,6 @@ export const Header = () => {
    // Si el token está presente en el localStorage, el usuario está autenticado.
   // `!!` convierte el valor a un booleano.
 
-  // Debugging: Verifica los valores de `isAuthenticated` y `username`.
-  console.log({ isAuthenticated, username }); 
-
   //! 4. Agregar un mensaje de bienvenida si el usuario está autenticado.
   if (isAuthenticated && username) {
     const welcomeText = document.createElement("p");  // Creamos un elemento <p>.

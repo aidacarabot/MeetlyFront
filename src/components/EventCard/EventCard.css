@@ -43,3 +43,10 @@
 .event-card.clickable {
   cursor: pointer;
 }
+
+/* ! WEB RESPONSIVE */
+@media (width < 430px) {
+  .event-card-home {
+    height: auto;
+  }
+}

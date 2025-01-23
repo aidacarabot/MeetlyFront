@@ -100,3 +100,11 @@
   margin-top: 15px;
   text-align: center;
 }
+
+/* ! WEB RESPONSIVE */
+@media (width < 450px) {
+  #create-event {
+    height: 800px;
+    padding: 20px;
+  }
+}

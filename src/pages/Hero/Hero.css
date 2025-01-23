@@ -134,3 +134,31 @@
   transform: translateY(0); /* Baja el botón al hacer clic */
 }
 
+/* WEB RESPONSIVENESS */
+
+@media (width < 1390px) {
+  .hero-header-container {
+    flex-direction: column;
+  }
+}
+
+@media (width < 587px) {
+  #login-register-buttons {
+    flex-direction: column;
+  }
+  .hero-header-container {
+    gap: 10px;
+    height: auto;
+  }
+  .title-description-div {
+    padding: 20px;
+    max-height: 800px;
+  }
+  #hero h1 {
+    font-size: 2rem;
+  }
+  .description-hero {
+    font-size: 1rem;
+  }
+
+}

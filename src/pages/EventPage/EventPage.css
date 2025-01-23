@@ -104,3 +104,30 @@
 .btn-delete-event:hover {
   opacity: 0.9;
 }
+
+/* ! WEB RESPONSIVE */
+@media (width < 1258px) {
+  .eventPg-date {
+    text-align: center;
+  }
+  .eventPg-location {
+    text-align: center;
+  }
+}
+@media (width < 1089px) {
+  .allDetails-eventPg {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .secondDetails-eventPg {
+    width: 80%;
+  }
+}
+@media (width < 888px) {
+  .mainDetails-eventPg {
+    width: auto;
+  }
+  .eventPg-title {
+    text-align: center;
+  }
+}
