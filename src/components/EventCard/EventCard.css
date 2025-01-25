@@ -1,6 +1,6 @@
 .event-card {
   width: var(--width-m);
-  height: var(--height-l);
+  min-height: var(--height-l);
   display: flex;
   flex-direction: column;
   gap: var(--gap-xl);
