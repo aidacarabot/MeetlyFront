@@ -3,33 +3,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 20px;
-  background: #e3e3e3;
-  border-radius: 30px;
-  width: 350px;
+  gap: var(--gap-s);
+  padding: var(--padding-l);
+  background: var(--login-background);
+  border-radius: var(--border-radius-xxl);
+  width: var(--width-l);
   box-shadow: 4px 4px black;
   border: 3px solid black;
 }
 
 .uiverse-title {
-  color: #000;
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: bold;
   font-size: x-large;
-  margin-bottom: 10px;
+  margin-bottom: var(--margin-s);
 }
 
 /* InputBox */
 .uiverse-inputBox {
   position: relative;
-  width: 250px;
+  width: var(--width-s);
 }
 
 .uiverse-input {
   width: 100%;
-  padding: 10px;
+  padding: var(--padding-s);
   border: none;
   outline: none;
   font-size: 1em;
@@ -45,8 +45,8 @@
   left: 10px;
   top: 10px;
   pointer-events: none;
-  font-size: 12px;
-  color: #000;
+  font-size: var(--font-size-s);
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 3px;
   transition: 0.5s;
@@ -57,46 +57,46 @@
   transform: translateX(113px) translateY(-15px);
   font-size: 0.8em;
   padding: 5px 10px;
-  background: #000;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-tertiary);
   letter-spacing: 0.2em;
-  border-radius: 8px;
+  border-radius: var(--border-radius-s);
 }
 
 .uiverse-input:valid,
 .uiverse-input:focus {
   border: 2px solid #000;
-  border-radius: 8px;
+  border-radius: var(--border-radius-s);
 }
 
 /* Botón de enviar */
 .uiverse-submit {
-  width: 200px;
-  padding: 10px;
+  width: var(--width-xs);
+  padding: var(--padding-s);
   border: 2px solid #000;
-  border-radius: 15px;
+  border-radius: var(--border-radius-l);
   background-color: transparent;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: var(--font-size-s);
   letter-spacing: 2px;
   transition: 0.5s;
 }
 
 .uiverse-submit:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--coloçr-primary);
+  color: var(--color-tertiary);
 }
 
 /* Texto de redirección */
 .uiverse-signin {
   text-align: center;
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: var(--font-size-ss);
+  margin-top: var(--margin-s);
 }
 
 .uiverse-signin .uiverse-link {
-  color: royalblue;
+  color: var(--color-link);
   cursor: pointer;
   font-weight: normal; /* Esto asegura que el texto no sea negrita */
 }

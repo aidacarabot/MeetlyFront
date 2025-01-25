@@ -4,30 +4,26 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  gap: 50px;
+  gap: var(--gap-xll);
 }
 
-/* Estilo único para el botón "Volver al menú principal" */
 .back-button {
-  --back-button_radius: 0.75em;
-  --back-button_color: #e8e8e8;
-  --back-button_outline_color: #000000;
-  font-size: 17px;
+  font-size: var(--font-size-l);
   font-weight: bold;
   border: none;
   cursor: pointer;
-  border-radius: var(--back-button_radius);
-  background: var(--back-button_outline_color);
+  border-radius: var(--button-radius);
+  background: var(--color-primary);
 }
 
 .back-button .back-button-span {
   display: block;
   box-sizing: border-box;
-  border: 2px solid var(--back-button_outline_color);
-  border-radius: var(--back-button_radius);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--button-radius);
   padding: 0.75em 1.5em;
-  background: var(--back-button_color);
-  color: var(--back-button_outline_color);
+  background: var(--color-secondary);
+  color: var(--color-primary);
   transform: translateY(-0.2em);
   transition: transform 0.1s ease;
 }

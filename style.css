@@ -1,10 +1,120 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+:root {
+  /* Colores */
+  --c1-background: #ffc857; /* Amarillo principal */
+  --c2-background: #ff5757; /* Rojo principal */
+  --color-primary: #000; /* Negro para bordes */
+  --color-secondary: #e8e8e8; /* Fondo claro */
+  --color-tertiary: #fff; 
+  --color-text-hover: #ffbb00; /* Texto al hacer hover */
+  --color-success: #4feb74; /* Verde éxito */
+  --color-error: #f65c6b; /* Rojo error */
+  --color-shadow: rgba(0, 0, 0, 0.1); /* Sombra suave */
+  --color-shadow-strong: rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
+  --color-error-background: #f38282; /* Fondo de error */
+  --color-success-background: #aee4ae; /* Fondo de éxito */
+  --color-event-container: #f5f5f5ab;
+  --color-header:#e8e8e8c9;
+  --login-background: #e3e3e3;
+  --color-link: royalblue;
+
+  /* Fuentes */
+  --font-family: "Inter", sans-serif;
+  --font-size-xs: 10px;
+  --font-size-s: 12px;
+  --font-size-ss: 14px;
+  --font-size-m: 15px;
+  --font-size-l: 16px;
+  --font-size-xl: 18px;
+  --font-size-xxl: 20px;
+  --font-size-h1: 25px;
+  --font-size-h2: 30px;
+  --font-size-title: 1.5rem; /* Títulos */
+
+  /* Tamaños y espaciados */
+  --border-radius-xs: 4px;
+  --border-radius-s: 8px;
+  --border-radius-m: 10px;
+  --border-radius-search: 12px;
+  --border-radius-l: 15px;
+  --border-radius-xl: 20px;
+  --border-radius-xxl: 30px;
+  --border-radius-xxxl: 40px;
+  --button-radius: 0.75em;
+
+  /* Tamaño de iconos */
+  --icon-size: 20px;
+
+  /* Margins */
+  --margin-xs: 5px;
+  --margin-s: 10px;
+  --margin-m: 15px;
+  --margin-l: 20px;
+  --margin-xl: 30px;
+  --margin-xxl: 40px;
+  --margin-xxxl: 50px;
+  --margin-hero-gap: 100px;
+
+  /* Paddings */
+  --padding-xs: 5px;
+  --padding-s: 10px;
+  --padding-m: 15px;
+  --padding-l: 20px;
+  --padding-xl: 30px;
+  --padding-xll: 40px;
+  --padding-xxl: 50px;
+
+  /* Gaps */
+  --gap-xs: 5px;
+  --gap-s: 10px;
+  --gap-m: 20px;
+  --gap-l: 30px;
+  --gap-xl: 40px;
+  --gap-xll: 50px;
+  --gap-xxl: 100px;
+  --gap-button: 3rem;
+
+  /* Anchuras */
+  --width-xs: 200px;
+  --width-s: 250px;
+  --width-m: 300px;
+  --width-l: 350px;
+  --width-xl: 600px;
+  --width-xxl: 800px;
+
+  /* Alturas */
+  --height-xs:45px;
+  --height-s:70px;
+  --height-m: 150px;
+  --height-l: 400px;
+  --height-xl: 650px;
+  --height-xxl: 800px;
+
+  /* Gradientes */
+  --gradient-radial: radial-gradient(
+    25% 25% at 25% 25%,
+    var(--c1-background) 99%,
+    rgba(0, 0, 0, 0) 101%
+  );
+  --gradient-radial-secondary: radial-gradient(
+    50% 50%,
+    var(--c2-background) 98%,
+    rgba(0, 0, 0, 0)
+  );
+
+  /* Medida base y cálculos */
+  --size-base: 60px;
+  --double-size: calc(2 * var(--size-base));
+  --half-size: calc(0.5 * var(--size-base));
+}
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif; 
+  font-family: var(--font-family);
 }
 
 ul,
@@ -19,21 +129,12 @@ a {
 body {
   height: 100%; /* Aseguramos que ocupe toda la pantalla */
   width: 100%;
-  --s: 60px;
-  --c1: #ffc857;
-  --c2: #ff5757;
-  --_g: radial-gradient(
-    25% 25% at 25% 25%,
-    var(--c1) 99%,
-    rgba(0, 0, 0, 0) 101%
-  );
-  background: var(--_g) var(--s) var(--s) / calc(2 * var(--s)) calc(2 * var(--s)),
-    var(--_g) 0 0 / calc(2 * var(--s)) calc(2 * var(--s)),
-    radial-gradient(50% 50%, var(--c2) 98%, rgba(0, 0, 0, 0)) 0 0 / var(--s)
-      var(--s),
-    repeating-conic-gradient(var(--c2) 0 50%, var(--c1) 0 100%)
-      calc(0.5 * var(--s)) 0 / calc(2 * var(--s)) var(--s);
-  background-color: var(--c1); /* Color de respaldo */
+  background: var(--gradient-radial) var(--size-base) var(--size-base) / var(--double-size) var(--double-size),
+    var(--gradient-radial) 0 0 / var(--double-size) var(--double-size),
+    var(--gradient-radial-secondary) 0 0 / var(--size-base) var(--size-base),
+    repeating-conic-gradient(var(--c2-background) 0 50%, var(--c1-background) 0 100%)
+      var(--half-size) 0 / var(--double-size) var(--size-base);
+  background-color: var(--c1-background); /* Color de respaldo */
   display: flex; /* Por si necesitas centrar elementos en la página */
   flex-direction: column;
   justify-content: center;

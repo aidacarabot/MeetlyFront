@@ -3,11 +3,11 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #e8e8e8c9;
+  background-color: var(--color-header);
   width: 98%;
-  height: 70px;
-  margin: 10px;
-  border-radius: 15px;
+  height: var(--height-s);
+  margin: var(--margin-s);
+  border-radius: var(--border-radius-l);
   border: 3px solid black;
   box-shadow: 4px 4px black;
 }
@@ -17,40 +17,40 @@ nav ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: var(--gap-xl);
 }
 
 nav ul li a {
-  color: black;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: bold;
-  display: inline-block; /* Necesario para que transform funcione correctamente */
-  transition: transform 0.3s ease, color 0.3s ease; /* Transición suave para el zoom y el color */
+  display: inline-block; 
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 nav ul li a:hover {
   transform: scale(1.1); /* Aplica un zoom del 10% */
-  color: #ffbb00; /* Cambia el color si lo deseas */
+  color: var(--color-text-hover); 
 }
 
 .welcome-text {
   font-size: 20px;
-  color: black;
+  color: var(--color-primary);
   margin-right: 20px;
   font-weight: bold;
   cursor: default;
 }
 
 .route-icon {
-  width: 20px; /* Tamaño del ícono */
-  height: 20px;
-  margin-right: 5px; /* Espacio entre el ícono y el texto */
+  width: var(--icon-size); 
+  height: var(--icon-size);
+  margin-right: var(--margin-xs);
   vertical-align: middle; /* Alinear el ícono con el texto */
   display: none; /* Oculta el ícono */
 }
 
 /* ! WEB RESPONSIVE */
-@media (width < 450px) {
+@media (width < 850px) {
   .welcome-text {
     text-align: center;
     font-size: 1rem;
@@ -66,6 +66,6 @@ nav ul li a:hover {
   }
 
   nav ul {
-    gap: 20px;
+    gap: var(--gap-m);
   }
 }

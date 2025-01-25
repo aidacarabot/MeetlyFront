@@ -5,66 +5,66 @@
   left: 50%; /* Centramos horizontalmente */
   transform: translate(-50%, -50%); /* Ajustamos el desplazamiento */
   z-index: 9999;
-  width: 300px;
+  width: var(--width-m);
   max-width: 90%;
-  padding: 20px;
+  padding: var(--padding-l);
   text-align: center;
-  font-size: 16px;
-  border-radius: 8px;
-  color: white;
+  font-size: var(--font-size-l);
+  border-radius: var(--border-radius-s);
+  color: var(--color-tertiary);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   display: none; /* Oculto por defecto */
 }
 
 /* Mensajes de error */
 .error-message {
-  background: #f38282;
-  color: black;
+  background: var(--color-error-background);
+  color: var(--color-primary);
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: var(--border-radius-m);
+  font-size: var(--font-size-xxl);
   text-align: center;
   font-weight: bolder;
-  padding: 15px 20px;
+  padding: var(--padding-m) var(--padding-l);
 }
 
 /* Mensajes de éxito */
 .success-message {
-  background: #aee4ae;
-  color: black;
+  background: var(--color-success-background);
+  color: var(--color-primary);
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: var(--border-radius-m);
+  font-size: var(--font-size-xxl);
   text-align: center;
   font-weight: bolder;
-  padding: 15px 20px;
+  padding: var(--padding-m) var(--padding-l);
 }
 
 /* Mensajes de información */
 .info-message {
-  background: #e8e8e8;
-  color: black;
+  background: var(--color-secondary);
+  color: var(--color-primary);
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: var(--border-radius-m);
+  font-size: var(--font-size-xxl);
   text-align: center;
   font-weight: bolder;
-  padding: 15px 20px;
+  padding: var(--padding-m) var(--padding-l);
 }
 
 /* Mensaje de éxito sin loader */
 .success-no-loader-message {
-  background: #e8e8e8;
-  color: black;
+  background: var(--color-secondary);
+  color: var(--color-primary);
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  padding: 15px 20px;
-  border-radius: 10px;
+  padding: var(--padding-m) var(--padding-l);
+  border-radius: var(--border-radius-m);
   text-align: center;
-  font-size: 20px;
+  font-size: var(--font-size-xxl);
   font-weight: bolder;
   display: none; /* Oculto por defecto */
 }
@@ -74,7 +74,7 @@
   --uib-size: 2.8rem;
   --uib-speed: 0.9s;
   --uib-color: #183153;
-  margin-top: 10px;
+  margin-top: var(--margin-s);
   position: relative;
   display: flex;
   align-items: center;

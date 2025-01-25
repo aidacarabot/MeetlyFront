@@ -3,64 +3,64 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  padding: 20px;
+  gap: var(--gap-l);
+  padding: var(--padding-l);
 }
 
 .allDetails-eventPg {
   display: flex;
-  gap: 100px;
+  gap: var(--gap-xxl);
   align-items: center;
   justify-content: center;
 }
 
 .mainDetails-eventPg {
-  width: 800px;
+  width: var(--width-xxl);
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  border-radius: 40px;
-  padding-top: 30px;
-  padding-bottom: 40px;
-  background-color: #e8e8e8e6;
+  border-radius: var(--border-radius-xxxl);
+  padding-top: var(--padding-xl);
+  padding-bottom: var(--padding-xll);
+  background-color:  var(--color-secondary);
 }
 
 .eventPg-organizer {
-  margin-bottom: 30px;
-  font-size: 15px;
+  margin-bottom: var(--margin-xl);
+  font-size: var(--font-size-m);
 }
 
 .eventPg-title {
-  font-size: 25px;
-  margin-bottom: 10px;
+  font-size: var(--font-size-h1);
+  margin-bottom: var(--margin-s);
 }
 
 .eventPg-img {
   width: 60%;
-  border-radius: 20px;
+  border-radius: var(--border-radius-xl);
   border: 3px solid black;
 }
 
 .eventPg-description {
   width: 60%;
-  font-size: 16px;
-  margin-top: 30px;
+  font-size: var(--font-size-l);
+  margin-top: var(--margin-xl);
 }
 
 .secondDetails-eventPg{
-  background-color: #e8e8e8e6;
+  background-color: var(--color-secondary);
   width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: var(--gap-xl);
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  border-radius: 20px;
-  padding: 30px;
+  border-radius: var(--border-radius-xl);
+  padding: var(--padding-xl);
 }
 
 .eventPg-date {
@@ -68,34 +68,34 @@
 }
 
 .eventPg-location {
-  font-size: 15px;
+  font-size: var(--font-size-m);
 }
 
 .attendees-count {
-  font-size: 20px;
+  font-size: var(--font-size-xxl);
 }
 
 .btn-subscribe {
-  background-color: #4feb74; /* Verde */
-  color: white;
+  background-color: var(--color-success);
+  color: var(--color-tertiary);
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: var(--font-size-xl);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-m);
   border: 3px solid black;
   box-shadow: 4px 4px black;
   cursor: pointer;
 }
 
 .btn-unsubscribe, .btn-delete-event {
-  background-color: #f65c6b; /* Rojo */
-  color: white;
+  background-color: var(--color-error);
+  color: var(--color-tertiary);
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: var(--font-size-xl);
   border: none;
   border: 3px solid black;
   box-shadow: 4px 4px black;
-  border-radius: 10px;
+  border-radius: var(--border-radius-m);
   cursor: pointer;
 }
 
@@ -117,7 +117,7 @@
 @media (width < 1089px) {
   .allDetails-eventPg {
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: var(--margin-l);
   }
   .secondDetails-eventPg {
     width: 80%;
