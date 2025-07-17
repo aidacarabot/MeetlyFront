@@ -13,7 +13,7 @@ export const LoginForm = (goToRegister) => {
   // Estructura del formulario
   form.innerHTML = `
     <div class="uiverse-card">
-      <a class="uiverse-login-title">Iniciar Sesión</a> <!-- Título estilizado -->
+      <a class="uiverse-login-title">Log in</a> <!-- Título estilizado -->
       
       <div class="uiverse-inputBox">
         <input 
@@ -22,7 +22,7 @@ export const LoginForm = (goToRegister) => {
           required="required" 
           autocomplete="off"
         />
-        <span class="uiverse-placeholder">Usuario o Email</span> <!-- Placeholder animado -->
+        <span class="uiverse-placeholder">username or email</span> <!-- Placeholder animado -->
       </div>
 
       <div class="uiverse-inputBox">
@@ -32,15 +32,15 @@ export const LoginForm = (goToRegister) => {
           required="required" 
           autocomplete="off"
         />
-        <span class="uiverse-placeholder">Contraseña</span> <!-- Placeholder animado -->
+        <span class="uiverse-placeholder">password</span> <!-- Placeholder animado -->
       </div>
 
-      <button type="submit" class="uiverse-enter">Entrar</button> <!-- Botón estilizado -->
+      <button type="submit" class="uiverse-enter">log in</button> <!-- Botón estilizado -->
       <div id="message" class="message"></div> <!-- Contenedor para mensajes -->
 
       <p class="uiverse-signup"> <!-- Mensaje para redirigir al registro -->
-        ¿Aún no tienes una cuenta? 
-        <span id="go-to-register" class="uiverse-link">Regístrate</span>
+        Don't have an account? 
+        <span id="go-to-register" class="uiverse-link">Register here</span>
       </p>
     </div>
   `
@@ -89,7 +89,7 @@ export const LoginForm = (goToRegister) => {
         // Mostramos un mensaje de éxito.
         showSuccessMessage(
           messageElement,
-          'Inicio de sesión exitoso. Redirigiendo...'
+          'Logged in successfully! Redirecting to your profile...'
         )
         setTimeout(() => window.navigateTo('/inicio'), 2000) // Redirige tras 2 segundos.
       }

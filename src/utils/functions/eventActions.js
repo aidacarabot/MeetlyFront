@@ -24,7 +24,7 @@ export const handleEventActions = (
   );
 
   if (isOrganizer) {
-    const deleteButton = Button('Eliminar Evento', 'btn-delete-event', async () => {
+    const deleteButton = Button('Delete Event', 'btn-delete-event', async () => {
       try {
         await fetchData(`/api/v1/events/${selectedEvent.id}`, 'DELETE', null, {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -14,7 +14,7 @@ import './Events.css'
 export const Events = async (parentDiv, options = {}, isCarousel = false) => {
   const {
     endpoint = '/api/v1/events', // Endpoint para cargar los eventos.
-    title = 'Eventos disponibles:', // Título que se mostrará antes de la lista.
+    title = 'Available Events:', // Título que se mostrará antes de la lista.
     showSearchBox = true, // Controla si se muestra el buscador.
     showErrors = true, // Controla si se muestran los mensajes de error.
     context = 'default', // Contexto de renderizado ('hero', 'home').

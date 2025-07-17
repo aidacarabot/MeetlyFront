@@ -26,7 +26,7 @@ export const EventsCreated = async (parentDiv) => {
   }
 
   // Mostrar mensaje de carga inicial
-  showInfoMessage(messageDiv, 'Cargando tus eventos creados...');
+  showInfoMessage(messageDiv, 'Loading created events...');
 
   try {
     //! Realizar la solicitud al backend.
@@ -45,7 +45,7 @@ export const EventsCreated = async (parentDiv) => {
     //! Si no hay eventos creados (respuesta vacía), mostrar mensaje.
     if (!response || response.length === 0) {
       clearMessage(messageDiv); // Limpia cualquier mensaje previo.
-      showNoEventsMessage(messageDiv, 'No hay eventos creados. Agrega algunos.');
+      showNoEventsMessage(messageDiv, 'No created events found. Create some!');
       eventsContainer.innerHTML = ''; // Limpia el contenedor de eventos.
       return;
     }
@@ -58,7 +58,7 @@ export const EventsCreated = async (parentDiv) => {
       eventsContainer.appendChild(eventCard);
     });
   } catch (error) {
-    console.error('Error al cargar eventos creados:', error);
+    console.error('Error loading created events:', error);
 
     //! Si ocurre un error, mostrar el mensaje del backend si está disponible.
     const errorMessage = error.message || 'Error al cargar eventos. Intenta más tarde.';

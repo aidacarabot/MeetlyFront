@@ -11,7 +11,7 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
 
   // Estructura del formulario
   form.innerHTML = `
-    <a class="uiverse-title">Registrarse</a> <!-- Título del formulario -->
+    <a class="uiverse-title">Register</a> <!-- Título del formulario -->
     
     <div class="uiverse-inputBox">
       <input 
@@ -22,7 +22,7 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
         placeholder=" " 
         autocomplete="off"
       />
-      <span class="uiverse-placeholder">Nombre Completo</span>
+      <span class="uiverse-placeholder">Full Name</span>
     </div>
 
     <div class="uiverse-inputBox">
@@ -34,7 +34,7 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
         placeholder=" " 
         autocomplete="off"
       />
-      <span class="uiverse-placeholder">Nombre de Usuario</span>
+      <span class="uiverse-placeholder">Username</span>
     </div>
 
     <div class="uiverse-inputBox">
@@ -46,7 +46,7 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
         placeholder=" " 
         autocomplete="off"
       />
-      <span class="uiverse-placeholder">Correo Electrónico</span>
+      <span class="uiverse-placeholder">Email</span>
     </div>
 
     <div class="uiverse-inputBox">
@@ -58,7 +58,7 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
         placeholder=" " 
         autocomplete="off"
       />
-      <span class="uiverse-placeholder">Contraseña</span>
+      <span class="uiverse-placeholder">Password</span>
     </div>
 
     <div class="uiverse-inputBox">
@@ -70,14 +70,14 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
         placeholder=" " 
         autocomplete="off"
       />
-      <span class="uiverse-placeholder">Confirmar Contraseña</span>
+      <span class="uiverse-placeholder">Repeat Password</span>
     </div>
 
-    <button type="submit" class="uiverse-submit">Registrar</button> <!-- Botón estilizado -->
+    <button type="submit" class="uiverse-submit">Register</button> <!-- Botón estilizado -->
 
     <p class="uiverse-signin">
-      ¿Ya tienes una cuenta? 
-      <span id="go-to-login" class="uiverse-link">Inicia Sesión</span> <!-- Enlace para redirigir -->
+      Already have an account?
+      <span id="go-to-login" class="uiverse-link">Log in</span> <!-- Enlace para redirigir -->
     </p>
 
     <div id="message" class="message"></div> <!-- Contenedor para mensajes -->
@@ -100,7 +100,7 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
 
     //! Validación de contraseñas
     if (userData.password !== userData.confirmPassword) {
-      errors.push('Las contraseñas no coinciden.')
+      errors.push('Passwords do not match.')
     }
 
     if (errors.length > 0) {
@@ -119,14 +119,14 @@ export const RegisterForm = (onSuccessfulRegister, goToLogin) => {
       if (response.user) {
         showSuccessMessage(
           messageElement,
-          'Registro exitoso. Redirigiendo al inicio de sesión...'
+          'Successfully registered! Redirecting to login...'
         )
         setTimeout(() => onSuccessfulRegister(), 2000)
       }
     } catch (error) {
       const errorMessage =
         error?.response?.error ||
-        'El usuario o correo ya están en uso. Intenta con otros.'
+        'Username or email already exists. Please try again.'
       showErrorMessage(messageElement, errorMessage)
     }
   })

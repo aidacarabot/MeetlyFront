@@ -22,7 +22,7 @@ const createHeroHeader = () => {
 
   const description = document.createElement("p"); // Creamos una descripción para la página.
   description.textContent =
-    "¿Aburrido de no saber qué hacer? Aquí encontrarás los eventos más chulos cerca de ti: conciertos, expos, talleres y planes que te sacan de la rutina. Explora, apúntate con un clic y vive nuevas experiencias mientras conoces gente con tus mismos intereses. Porque los mejores recuerdos empiezan con un buen plan. ¿Te apuntas? 🎉";
+    "Bored of not knowing what to do? Discover the coolest events near you—concerts, exhibitions, workshops, and plans that break your routine. Explore, sign up with one click, and enjoy new experiences while meeting people who share your interests. Because the best memories start with a great plan. Are you in? 🎉";
   description.className = "description-hero";
 
   titleDescription.append(h1, description);
@@ -77,16 +77,16 @@ const createLoginRegisterButtons = () => {
 //! Función que crea un botón para acceder a más eventos con diseño de UIverse.
 const createAccessAllEventsButton = () => {
   return Button(
-    "¡Entra para disfrutar de todos ellos!", // Texto del botón.
-    "uiverse-access-btn", // Clase CSS para el diseño específico del botón.
+    'Sign in to access all events', // Texto del botón.
+    'uiverse-access-btn', // Clase CSS para el diseño específico del botón.
     () => {
       // Acción al hacer clic en el botón: desplazarse al inicio de la página.
-      window.scrollTo({ top: 0, behavior: "smooth" }); // Redirige al inicio con desplazamiento suave.
+      window.scrollTo({ top: 0, behavior: 'smooth' }) // Redirige al inicio con desplazamiento suave.
     },
-    "access-button-id", // ID opcional.
+    'access-button-id', // ID opcional.
     true, // Indicamos que usamos un <span> en el botón.
-    "uiverse-access-btn-top" // Clase específica para el <span>.
-  );
+    'uiverse-access-btn-top' // Clase específica para el <span>.
+  )
 };
 
 //! Función principal para renderizar la página Hero.
@@ -96,7 +96,7 @@ export const Hero = () => {
   heroDiv.appendChild(createHeroHeader()); // Título y descripción.
 
   //! Renderizamos una lista de eventos como carrusel con título, pero sin buscador.
-  Events(heroDiv, { title: "Explora los eventos que te están esperando:", showSearchBox: false }, true);
+  Events(heroDiv, { title: "Explore the events waiting for you:", showSearchBox: false }, true);
 
   heroDiv.appendChild(createAccessAllEventsButton()); // Botón de acceso a eventos.
 

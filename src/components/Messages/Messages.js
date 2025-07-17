@@ -75,7 +75,7 @@ export const showNoEventsMessage = (container, message) => {
     return;
   }
 
-  container.innerHTML = `<p>${message}</p>`;
+  container.innerHTML = `<p>No events created yet.</p>`;
   container.className = "no-events-message"; // Clase específica para mensajes estáticos
   container.style.display = "block"; // Aseguramos que sea visible
 };

@@ -14,37 +14,37 @@ export const CreateEvent = () => {
 
   modal.innerHTML = `
     <div class="merenge-modal__header">
-      <span class="merenge-modal__title">Crear Evento</span>
+      <span class="merenge-modal__title">Create New Event</span>
     </div>
 
     <form class="merenge-modal__body merenge-create-event-form">
       <div class="merenge-input">
-        <label class="merenge-input__label">Título del Evento</label>
+        <label class="merenge-input__label">Event Title</label>
         <input class="merenge-input__field" type="text" name="title" required />
       </div>
 
       <div class="merenge-input">
-        <label class="merenge-input__label">Descripción</label>
+        <label class="merenge-input__label">Description</label>
         <textarea class="merenge-input__field merenge-input__field--textarea" name="description" required></textarea>
       </div>
 
       <div class="merenge-input">
-        <label class="merenge-input__label">Ubicación</label>
+        <label class="merenge-input__label">Location</label>
         <input class="merenge-input__field" type="text" name="location" required />
       </div>
 
       <div class="merenge-input">
-        <label class="merenge-input__label">Fecha</label>
+        <label class="merenge-input__label">Date</label>
         <input class="merenge-input__field" type="datetime-local" name="date" required />
       </div>
 
       <div class="merenge-input">
-        <label class="merenge-input__label">Imagen</label>
+        <label class="merenge-input__label">Image</label>
         <input class="merenge-input__field" type="file" name="img" accept="image/*" required />
       </div>
 
       <div class="merenge-modal__footer">
-        <button type="submit" class="merenge-button merenge-button--primary">Crear Evento</button>
+        <button type="submit" class="merenge-button merenge-button--primary">Create New Event</button>
       </div>
     </form>
 
@@ -66,7 +66,7 @@ export const CreateEvent = () => {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       })
 
-      showSuccessMessage(messagesDiv, 'Evento creado exitosamente.')
+      showSuccessMessage(messagesDiv, 'Event created successfully!')
       form.reset()
       setTimeout(() => window.navigateTo('/inicio'), 2000)
     } catch (error) {

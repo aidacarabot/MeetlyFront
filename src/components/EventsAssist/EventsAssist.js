@@ -26,7 +26,7 @@ export const EventsAssist = async (parentDiv) => {
   }
 
   // Mostrar mensaje de carga inicial
-  showInfoMessage(messageDiv, 'Cargando los eventos a los que estás inscrito...');
+  showInfoMessage(messageDiv, 'Loading attending events...');
 
   try {
     //! Realizar la solicitud al backend.
@@ -45,7 +45,7 @@ export const EventsAssist = async (parentDiv) => {
     //! Si no hay eventos (respuesta vacía), mostrar mensaje.
     if (!response || response.length === 0) {
       clearMessage(messageDiv); // Limpia cualquier mensaje previo.
-      showNoEventsMessage(messageDiv, 'No estás inscrito en ningún evento.');
+      showNoEventsMessage(messageDiv, 'You are not attending any events yet.');
       eventsContainer.innerHTML = ''; // Limpia el contenedor de eventos.
       return;
     }

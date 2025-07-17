@@ -24,7 +24,7 @@ export const EventsSearchBar = (parentDiv, onInput) => {
   input.id = "events-search-query"; // ID único para el input.
   input.className = "events-search-input"; // Clase única para el input.
   input.type = "search";
-  input.placeholder = "Buscar eventos...";
+  input.placeholder = 'Search events ...'
 
   //! Agregar funcionalidad para retrasar la búsqueda
   let typingTimer; // Temporizador para el retraso

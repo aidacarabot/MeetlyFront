@@ -19,7 +19,7 @@ export const Header = () => {
   //! 4. Agregar un mensaje de bienvenida si el usuario está autenticado.
   if (isAuthenticated && username) {
     const welcomeText = document.createElement("p");  // Creamos un elemento <p>.
-    welcomeText.textContent = `Bienvenid@ ${username}`; // Mensaje personalizado
+    welcomeText.textContent = `Welcome ${username} !`; // Mensaje personalizado
     welcomeText.className = "welcome-text"; // Clase CSS para el mensaje
     header.appendChild(welcomeText); // Agregamos el mensaje al Header
   }
@@ -33,16 +33,16 @@ export const Header = () => {
   if (isAuthenticated) {
     //! 6. Si el usuario está autenticado, añadimos una opción para "Cerrar Sesión".
     selectedRoutes.push({
-      path: "/", // Ruta a la página principal (Hero)
-      text: "Cerrar Sesión", // Texto del enlace.
-      icon: "/assets/logout-logo.png", // Ícono específico
+      path: '/', // Ruta a la página principal (Hero)
+      text: 'Log out', // Texto del enlace.
+      icon: '/assets/logout-logo.png', // Ícono específico
       action: () => {
         // Acción al hacer clic en "Cerrar Sesión".
-        localStorage.removeItem("token"); // Eliminamos el token del localStorage.
-        localStorage.removeItem("username"); // Eliminamos el nombre de usuario del localStorage.
-        window.navigateTo("/"); // Redirigimos al usuario a la página principal.
-      },
-    });
+        localStorage.removeItem('token') // Eliminamos el token del localStorage.
+        localStorage.removeItem('username') // Eliminamos el nombre de usuario del localStorage.
+        window.navigateTo('/') // Redirigimos al usuario a la página principal.
+      }
+    })
   } else {
     //! 7. Si el usuario no está autenticado, añadimos una opción para "Iniciar Sesión".
     selectedRoutes.push(routes.find((route) => route.path === "/login"));

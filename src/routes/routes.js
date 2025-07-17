@@ -13,34 +13,34 @@ export const routes = [
   },
   {
     path: "/inicio",
-    text: "Inicio",
+    text: "Home",
     page: Home,
     icon: "/assets/home-logo.png"
   },
   {
     path: "/perfil",
-    text: "Perfil",
+    text: "Profile",
     page: Profile,
     icon: "/assets/profile-logo.png"
   },
   {
     path: "/crear-evento",
-    text: "Crear Evento",
+    text: "Create Event",
     page: CreateEvent
   },
   {
     path: "/login",
-    text: "Iniciar Sesión",
+    text: "Log in",
     page: () => LoginRegister("/login")
   },
   {
     path: "/register",
-    text: "Registrarse",
+    text: "Register",
     page: () => LoginRegister("/register")
   },
   { 
     path: "/event/:eventName",
-    text: "Evento",
+    text: "Event",
     page: EventPage,
   },
 ];

@@ -36,15 +36,15 @@ export const LoginRegister = (path) => {
   //! Función para añadir el botón de "Volver al menú principal"
   const addBackButton = (container) => {
     const backButton = Button(
-      "Volver al menú principal", // Texto del botón.
-      "back-button", // Clase CSS personalizada.
+      'Back to Menu', // Texto del botón.
+      'back-button', // Clase CSS personalizada.
       () => {
-        window.navigateTo("/"); // Redirige a la página Hero.
+        window.navigateTo('/') // Redirige a la página Hero.
       },
-      "back-button-id", // ID opcional del botón.
+      'back-button-id', // ID opcional del botón.
       true, // Indica que el botón utilizará un <span>.
-      "back-button-span" // Clase personalizada para el <span>.
-    );
+      'back-button-span' // Clase personalizada para el <span>.
+    )
     container.appendChild(backButton); // Añade el botón al contenedor.
   };
 

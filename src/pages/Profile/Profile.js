@@ -24,20 +24,20 @@ export const Profile = () => {
 
   // **3. Botón para "Eventos a los que Asistiré":**
   const assistButton = Button(
-    "Eventos a los que Asistiré", // Texto del botón
-    "uiverse-assist-button", // Clase personalizada para el botón
+    'Attending Events', // Texto del botón
+    'uiverse-assist-button', // Clase personalizada para el botón
     () => {
-      setActiveButton(assistButton); // Marcar este botón como activo
-      renderSection("assist"); // Callback para renderizar la sección de eventos asistidos
+      setActiveButton(assistButton) // Marcar este botón como activo
+      renderSection('assist') // Callback para renderizar la sección de eventos asistidos
     },
-    "", // Sin ID específico
+    '', // Sin ID específico
     true, // Usa un <span>
-    "uiverse-button-top-assist" // Clase CSS específica para el span del botón
-  );
+    'uiverse-button-top-assist' // Clase CSS específica para el span del botón
+  )
 
   // **4. Botón para "Eventos Creados":**
   const createdButton = Button(
-    "Eventos Creados", // Texto del botón
+    "Created Events", // Texto del botón
     "uiverse-created-button", // Clase personalizada para el botón
     () => {
       setActiveButton(createdButton); // Marcar este botón como activo
