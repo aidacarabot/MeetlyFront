@@ -52,8 +52,8 @@ export const handleEventActions = (
           showTemporarySuccessMessage(
             messageDiv,
             isAttending
-              ? 'Te has desinscrito del evento.'
-              : 'Te has inscrito al evento.',
+              ? 'You have successfully unattended the event.'
+              : 'You are now attending the event.',
             3000
           )
 
