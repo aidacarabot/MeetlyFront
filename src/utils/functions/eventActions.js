@@ -29,7 +29,7 @@ export const handleEventActions = (
         await fetchData(`/api/v1/events/${selectedEvent.id}`, 'DELETE', null, {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         });
-        showSuccessMessage(messageDiv, 'Evento eliminado exitosamente.');
+        showSuccessMessage(messageDiv, 'Event deleted successfully!');
         setTimeout(() => window.navigateTo('/inicio'), 2000);
       } catch (error) {
         console.error('Error al eliminar el evento:', error);
