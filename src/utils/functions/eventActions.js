@@ -39,15 +39,15 @@ export const handleEventActions = (
     eventDetailsDiv.appendChild(deleteButton);
   } else {
     const attendButton = Button(
-      isAttending ? 'Desinscribirse' : 'Inscribirse',
+      isAttending ? 'Unattend' : 'Attend',
       isAttending ? 'btn-unsubscribe' : 'btn-subscribe',
       async () => {
         try {
-          const endpoint = `/api/v1/events/attend/${selectedEvent.id}`;
-          const method = isAttending ? 'DELETE' : 'POST';
+          const endpoint = `/api/v1/events/attend/${selectedEvent.id}`
+          const method = isAttending ? 'DELETE' : 'POST'
           await fetchData(endpoint, method, null, {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          });
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          })
 
           showTemporarySuccessMessage(
             messageDiv,
@@ -55,21 +55,25 @@ export const handleEventActions = (
               ? 'Te has desinscrito del evento.'
               : 'Te has inscrito al evento.',
             3000
-          );
+          )
 
-          updateAttendeesCount(isAttending ? -1 : 1);
-          isAttending = !isAttending;
-          attendButton.textContent = isAttending ? 'Desinscribirse' : 'Inscribirse';
-          attendButton.className = isAttending ? 'btn-unsubscribe' : 'btn-subscribe';
+          updateAttendeesCount(isAttending ? -1 : 1)
+          isAttending = !isAttending
+          attendButton.textContent = isAttending
+            ? 'Unattend'
+            : 'Attend'
+          attendButton.className = isAttending
+            ? 'btn-unsubscribe'
+            : 'btn-subscribe'
         } catch (error) {
-          console.error('Error al inscribirse/desinscribirse:', error);
+          console.error('Error al inscribirse/desinscribirse:', error)
           showErrorMessage(
             messageDiv,
             'Hubo un problema al procesar la solicitud.'
-          );
+          )
         }
       }
-    );
+    )
     eventDetailsDiv.appendChild(attendButton);
   }
 };
