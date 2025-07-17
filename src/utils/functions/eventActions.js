@@ -33,7 +33,7 @@ export const handleEventActions = (
         setTimeout(() => window.navigateTo('/inicio'), 2000);
       } catch (error) {
         console.error('Error al eliminar el evento:', error);
-        showErrorMessage(messageDiv, 'Error al eliminar el evento.');
+        showErrorMessage(messageDiv, 'Error deleting event. Please try again.');
       }
     });
     eventDetailsDiv.appendChild(deleteButton);
@@ -69,7 +69,7 @@ export const handleEventActions = (
           console.error('Error al inscribirse/desinscribirse:', error)
           showErrorMessage(
             messageDiv,
-            'Hubo un problema al procesar la solicitud.'
+            'There was an error processing your request. Please try again.'
           )
         }
       }

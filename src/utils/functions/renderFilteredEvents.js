@@ -39,7 +39,7 @@ export const renderFilteredEvents = (
     if (errorDiv)
       showErrorMessage(
         errorDiv,
-        'No hay eventos que coincidan con tu búsqueda. Prueba con otra cosa :)'
+        'There are no events matching your search criteria. Please try again :)'
       )
     return // Salimos de la función si no hay resultados.
   }
